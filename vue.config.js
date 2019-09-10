@@ -13,8 +13,8 @@ module.exports = {
   chainWebpack: config => {
     config.resolve.alias
       .set('@', resolve('src'))
-      .set('@lib', resolve('src/libs'))
-      .set('@api', resolve('src/api/xbei'))
+      .set('_l', resolve('src/libs'))
+      .set('_c', resolve('src/components'))
       .set('@static', resolve('src/static'))
   },
   productionSourceMap: false

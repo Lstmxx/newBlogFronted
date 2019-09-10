@@ -1,7 +1,7 @@
 <template>
   <div class="mySelf">
     <div class="title">
-      hello My Blog
+      <blogHead></blogHead>
     </div>
     <ul class="list">
       <li v-for="(data, index) in listData" :key="index" @click="selectPage(data.name)">{{data.title}}</li>
@@ -9,8 +9,12 @@
   </div>
 </template>
 <script lang="ts">
+import blogHead from '../../components/head/index'
 export default {
   name: 'mySelf',
+  components: {
+    blogHead
+  },
   props: {
     selectedPage: {
       type: String,
@@ -22,7 +26,7 @@ export default {
       listData: [
         { title: '公告', name: 'notice' },
         { title: '文章列表', name: 'article' },
-        { title: '关于我们', name: 'about' }
+        { title: '关于作者', name: 'about' }
       ]
     }
   },

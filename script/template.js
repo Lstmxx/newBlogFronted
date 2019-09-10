@@ -15,7 +15,7 @@ module.exports = {
     let res = componentName
     return `<template>
   <div class="${res}">
-  <div>
+  </div>
 </template>
 <script lang="ts">
 export default {
