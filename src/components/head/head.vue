@@ -3,36 +3,68 @@
     <canvas id="canvas"></canvas>
   </div>
 </template>
-<script lang="ts">
+<script >
 import LeonSans from '../../libs/leon/src/index'
+import { TweenMax, Power4 } from 'gsap'
 export default {
   name: 'head',
   data () {
     return {
+      leon: {}
     }
   },
   methods: {
+    draw () {
+      if (this.leon) {
+        let i
+        let total = this.leon.drawing.length
+        for (i = 0; i < total; i++) {
+          TweenMax.killTweensOf(this.leon.drawing[i])
+          TweenMax.fromTo(this.leon.drawing[i], 1.6, {
+            value: 0
+          }, {
+            delay: i * 0.05,
+            value: 1,
+            ease: Power4.easeOut
+          })
+        }
+      }
+    },
     init () {
       let leon, canvas, ctx
-      const pixelRatio = 10
+      let head = document.getElementsByClassName('head')[0]
+      const sw = window.screen.width
+      const sh = window.screen.height
+      const pixelRatio = window.devicePixelRatio * head.offsetWidth / sw
       canvas = document.getElementById('canvas')
-      canvas.width = 400 * pixelRatio
-      canvas.height = 200 * pixelRatio
       ctx = canvas.getContext('2d')
+      canvas.width = sw * pixelRatio
+      canvas.height = sh * pixelRatio
+      // canvas.style.width = sw + 'px'
+      // canvas.style.height = sh + 'px'
       ctx.scale(pixelRatio, pixelRatio)
       leon = new LeonSans({
         text: 'Lstmxx',
-        color: ['#000000'],
-        size: 100,
+        color: ['#e7e3e2'],
+        size: 500,
         weight: 200
       })
-      console.log(leon)
-      leon.draw(ctx)
+      this.leon = leon
+      function animate (t) {
+        requestAnimationFrame(animate)
+        ctx.clearRect(0, 0, sw, sh)
+        const x = (sw - leon.rect.w) / 2
+        const y = (sh - leon.rect.h) / 2
+        leon.position(x, y)
+        leon.draw(ctx)
+      }
+      requestAnimationFrame(animate)
     }
   },
   mounted () {
     this['$nextTick'](() => {
-      this['init']()
+      this.init()
+      this.draw()
     })
   }
 }

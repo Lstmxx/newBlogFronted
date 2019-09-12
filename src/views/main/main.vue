@@ -1,10 +1,12 @@
 <template>
   <div class="main">
     <mySelf @turn-to-page="handleTurnToPage" :selectedPage="selectedPage"/>
-    <div class="content">
-      <keep-alive>
-        <router-view/>
-      </keep-alive>
+    <div style="display: relative;float: right; width: 84%">
+      <div class="content">
+        <keep-alive>
+          <router-view/>
+        </keep-alive>
+      </div>
     </div>
   </div>
 </template>
