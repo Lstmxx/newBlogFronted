@@ -5,6 +5,7 @@
  *
  * @license Copyright (c) 2019, Jongmin Kim. All rights reserved.
  **/
+/* eslint-disable */
 import {
   Dispatcher
 } from './core/dispatcher.js'

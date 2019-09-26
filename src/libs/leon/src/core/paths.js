@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
     getCurrent
 } from './util.js';

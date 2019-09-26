@@ -5,7 +5,7 @@
 </template>
 <script lang="ts">
 export default {
-  name: 'about'
+  name: 'About'
 }
 </script>
 <style lang="less">

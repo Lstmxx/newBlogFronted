@@ -1,2 +1,2 @@
-import notice from './notice.vue'
-export default notice
+import Notice from './notice.vue'
+export default Notice

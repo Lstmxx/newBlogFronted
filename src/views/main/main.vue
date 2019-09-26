@@ -1,7 +1,7 @@
 <template>
   <div class="main">
-    <mySelf @turn-to-page="handleTurnToPage" :selectedPage="selectedPage"/>
-    <div style="display: relative;float: right; width: 84%">
+    <MySelf @turn-to-page="handleTurnToPage" :selectedPage="selectedPage"/>
+    <div style="display: relative;float: right; width: 86%">
       <div class="content">
         <keep-alive>
           <router-view/>
@@ -12,14 +12,14 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import mySelf from '@/views/mySelf/index'
+import MySelf from '@/views/my-self/index'
 export default Vue.extend({
-  name: 'main',
+  name: 'Main',
   props: {
     msg: String
   },
   components: {
-    mySelf
+    MySelf
   },
   data () {
     return {

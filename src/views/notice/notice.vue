@@ -5,7 +5,7 @@
 </template>
 <script lang="ts">
 export default {
-  name: 'notice',
+  name: 'Notice',
   data () {
     return {
     }

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
     Point
 } from './point.js';

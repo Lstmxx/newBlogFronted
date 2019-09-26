@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import main from './views/main/index'
+import Main from './views/main/index'
 
 Vue.use(Router)
 
@@ -11,12 +11,12 @@ export default new Router({
     {
       path: '/',
       name: 'main',
-      component: main
+      component: Main
     },
     {
       path: '',
       name: 'Notice',
-      component: main,
+      component: Main,
       children: [
         {
           path: '/notice',
@@ -27,20 +27,20 @@ export default new Router({
     },
     {
       path: '',
-      name: 'Article',
-      component: main,
+      name: 'ArticleList',
+      component: Main,
       children: [
         {
-          path: '/article',
-          name: 'article',
-          component: () => import('./views/article/index')
+          path: '/article-list',
+          name: 'articleList',
+          component: () => import('./views/article-list/index')
         }
       ]
     },
     {
       path: '',
       name: 'About',
-      component: main,
+      component: Main,
       children: [
         {
           path: '/about',

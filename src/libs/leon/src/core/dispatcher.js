@@ -1,3 +1,4 @@
+/* eslint-disable */
 export class Dispatcher {
     constructor() {
         this.handlers_ = {

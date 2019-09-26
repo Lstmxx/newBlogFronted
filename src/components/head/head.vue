@@ -45,7 +45,7 @@ export default {
       ctx.scale(pixelRatio, pixelRatio)
       leon = new LeonSans({
         text: 'Lstmxx',
-        color: ['#e7e3e2'],
+        color: ['#363636'],
         size: 500,
         weight: 200
       })

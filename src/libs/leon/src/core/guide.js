@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
     RECT_RATIO
 } from './util.js';
