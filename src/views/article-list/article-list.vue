@@ -1,6 +1,9 @@
 <template>
   <div class="articleList">
     <ArticleDigest v-for="(articleData, index) in articleDataList" :key="index" :index="index" :articleData="articleData"></ArticleDigest>
+    <div class="footer">
+      <button @click="loadMoreArticle">hello</button>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -12,9 +15,17 @@ export default {
   },
   data () {
     return {
+      originArticleDataList: [
+        {}, {}, {}, {}
+      ],
       articleDataList: [
         {}, {}
       ]
+    }
+  },
+  methods: {
+    loadMoreArticle () : void {
+      this['articleDataList'].push(...this['originArticleDataList'])
     }
   }
 }
