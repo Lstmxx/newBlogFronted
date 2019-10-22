@@ -5,7 +5,7 @@
     </div>
     <div class="contentWarp">
       <div class="imageWarp">
-        <div class="image"></div>
+        <div class="image" :style="{ 'background': `url(${imagePath})` }"></div>
       </div>
       <div class="content">
         <div class="summary">
@@ -31,16 +31,22 @@ export default {
     index: {
       default: 0,
       type: Number
+    },
+    articleData: {
+      default: () => {},
+      type: Object
     }
   },
   data () {
     return {
+      imagePath: '../../assets/timg.jpg'
     }
   },
   methods: {
     selectArticle () {
       let d = document.getElementsByClassName('articleDigest')
       console.log(d[this['index']]['offsetHeight'])
+      this['$emit']('on-select', this['articleData'].id)
     }
   }
 }

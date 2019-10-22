@@ -34,6 +34,11 @@ export default new Router({
           path: '/article-list',
           name: 'articleList',
           component: () => import('./views/article-list/index')
+        },
+        {
+          path: '/article-detail',
+          name: 'articleDetail',
+          component: () => import('./views/article-detail/index')
         }
       ]
     },
