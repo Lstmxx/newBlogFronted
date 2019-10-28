@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
     generateFontData,
     ROTATE_HORIZONTAL,

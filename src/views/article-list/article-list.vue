@@ -8,7 +8,7 @@
 </template>
 <script lang="ts">
 import ArticleDigest from '@/components/article-digest/index'
-import { sendRequest } from '@/libs/request.js'
+import { getList } from '@/libs/request'
 export default {
   name: 'ArticleList',
   components: {
@@ -36,11 +36,9 @@ export default {
     loadMoreArticle () : void {
       this['articleDataList'].push(...this['originArticleDataList'])
       let config = {
-        method: 'GET',
-        url: '/load_article_list',
-        data: {}
+        url: '/article/list'
       }
-      sendRequest(config).then((responseData) => {
+      getList(config).then((responseData) => {
         console.log(responseData)
       }).catch((err) => {
         console.log(err)

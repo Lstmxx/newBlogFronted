@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
     UPPER
 } from './upper.js';

@@ -1,32 +1,45 @@
 <template>
   <div class="main">
-    <MySelf @turn-to-page="handleTurnToPage" :selectedPage="selectedPage"/>
-    <div style="display: relative;float: right; width: 86%">
-      <div class="content">
-        <keep-alive>
-          <router-view/>
-        </keep-alive>
+    <div class="left">
+      <MySelf @turn-to-page="handleTurnToPage" :selectedPage="selectedPage" :scroll="scroll" />
+    </div>
+    <div class="content">
+      <keep-alive>
+        <router-view/>
+      </keep-alive>
+    </div>
+    <div class="right">
+      <div class="login">
+        <span :class="{selected: loginShow, notSelected: !loginShow}" @click.stop="loginShow = true">Login</span>
       </div>
     </div>
+    <Login v-if="loginShow" v-model="loginShow"></Login>
   </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'
 import MySelf from '@/views/my-self/index'
+import Login from '@/components/login/index'
 export default Vue.extend({
   name: 'Main',
   props: {
     msg: String
   },
   components: {
-    MySelf
+    MySelf,
+    Login
   },
   data () {
     return {
-      selectedPage: 'notice'
+      scroll: 0,
+      selectedPage: 'notice',
+      loginShow: false
     }
   },
   methods: {
+    menu () {
+      (this as any).scroll = document.getElementsByClassName('main')[0].scrollTop
+    },
     handleTurnToPage (name: string) : void {
       if (this['$route'].path !== `/${name}`) {
         this.selectedPage = name
@@ -35,6 +48,9 @@ export default Vue.extend({
         })
       }
     }
+  },
+  mounted () {
+    window.addEventListener('scroll', (this as any).menu, true)
   }
 })
 </script>

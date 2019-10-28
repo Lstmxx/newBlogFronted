@@ -3,17 +3,32 @@
   </div>
 </template>
 <script lang="ts">
+import { getDetail } from '@/libs/request'
 export default {
   name: 'ArticleDetail',
-  mounted () {
-    console.log(this['$route'])
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      console.log(vm['$route'])
+      vm['loadArticleDetail'](vm['$route']['query']['id'])
+    })
   },
   data () {
     return {
     }
   },
   methods: {
-    loadArticleDetail () : void {
+    loadArticleDetail (id) : void {
+      let config = {
+        url: '/article/detail',
+        data: {
+          id
+        }
+      }
+      getDetail(config).then((responseData) => {
+        console.log(responseData)
+      }).catch((err) => {
+        console.log(err)
+      })
     }
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
     Vector
 } from '../core/vector.js';

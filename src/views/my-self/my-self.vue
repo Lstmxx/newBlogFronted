@@ -1,5 +1,5 @@
 <template>
-  <div class="mySelf">
+  <div class="mySelf" :style="{ 'margin-top': scroll + 'px' }">
     <div class="title">
       <blogHead></blogHead>
     </div>
@@ -11,7 +11,7 @@
   </div>
 </template>
 <script lang="ts">
-import blogHead from '../../components/head/index'
+import blogHead from '../../components/website-title/index'
 export default {
   name: 'MySelf',
   components: {
@@ -21,7 +21,13 @@ export default {
     selectedPage: {
       type: String,
       default: 'notice'
+    },
+    scroll: {
+      type: Number,
+      default: 0
     }
+  },
+  watch: {
   },
   data () {
     return {
@@ -40,7 +46,14 @@ export default {
     }
   },
   mounted () {
-    this['selectPage']('notice', 0)
+    const name = this['$route']['name']
+    if (name.startsWith('article')) {
+      this['selectedIndex'] = 1
+    } else if (name === 'about') {
+      this['selectedIndex'] = 2
+    } else {
+      this['selectPage']('notice', 0)
+    }
   }
 }
 </script>
