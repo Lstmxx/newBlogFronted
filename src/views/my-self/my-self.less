@@ -1,0 +1,26 @@
+@import '~@less/font-line.less';
+.mySelf{
+  position: relative;
+  width: 60%;
+  height: 100%;
+  background: #fffffc;
+  .list{
+    position: absolute;
+    bottom: 30%;
+    width: 100%;
+    padding-left: 0px;
+    list-style: none;
+    li{
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      &:first-child{
+        margin-bottom: 0px
+      }
+      &:last-child{
+        margin-top: 0px;
+      }
+    }
+  }
+}

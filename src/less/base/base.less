@@ -1,0 +1,36 @@
+/*
+  骨架屏
+*/
+
+@bg-color: #ecebeb;
+@move-color: #f9f9f9;
+
+.gray{
+  background: linear-gradient(to right, #ecebeb 40%, #f9f9f9 60%, #ecebeb 80%,#ecebeb) right center/600% 600% !important;
+  color: rgba(255, 255, 255, 0)!important;
+  overflow: hidden;
+  animation: move 3s infinite;
+}
+
+@keyframes move {
+  0%{
+    background-position-x: right;
+  }
+  100%{
+    background-position-x: left;
+  }
+}
+
+
+/*
+  flex布局
+*/
+
+.col{
+  display: flex;
+  flex-direction: column;
+}
+.row{
+  display: flex;
+  flex-direction: row;
+}
