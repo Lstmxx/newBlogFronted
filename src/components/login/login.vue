@@ -2,9 +2,11 @@
   <div class="login">
     <div class="mask" @click="close"></div>
     <div :class="{ 'loginBox': true, 'show': show }">
+      <label for="usrname">账号</label>
       <div :class="{ 'inputDiv': true, 'correct': usernameValid, 'incorrect': !usernameValid }">
         <input type="username" v-model="username" placeholder="5到8位用户名" maxlength="8">
       </div>
+      <label for="password">密码</label>
       <div :class="{ 'inputDiv': true, 'correct': passwordValid, 'incorrect': !passwordValid }">
         <input type="password" v-model="password" placeholder="8到10位密码" maxlength="10">
       </div>
