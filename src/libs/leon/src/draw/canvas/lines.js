@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
     PI2
 } from '../../core/util.js';

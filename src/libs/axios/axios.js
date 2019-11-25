@@ -47,9 +47,6 @@ const service = axios.create({
   timeout: 6000,
   responseType: 'application/json',
   headers: {
-    common: {
-      token: localStorage.getItem('token') || ''
-    },
     get: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
     },
@@ -80,14 +77,16 @@ service.interceptors.request.use((config) => {
 })
 
 service.interceptors.response.use((response) => {
+  console.log(response)
   let status = response.status
   let msg = ''
   let data = response.data
   if (status < 200 || status >= 300) {
     msg = showStatus(status)
-  } else if (data.status < 200 || data.status >= 300) {
-    msg = showStatus(data.status)
+  }
+  if (data.status < 200 || data.status >= 300) {
     status = data.status
+    msg = showStatus(data.status)
   }
   return { status, data, msg }
 }, (error) => {

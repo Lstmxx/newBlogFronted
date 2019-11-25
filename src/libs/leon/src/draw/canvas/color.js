@@ -1,3 +1,4 @@
+/* eslint-disable */
 export function Color(ctx, no, data, color) {
     let c_total = color.length;
     const cur = (no + (c_total * (Math.abs((no / 10) | 0) + 1))) % c_total;

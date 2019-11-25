@@ -1,3 +1,4 @@
+/* eslint-disable */
 export function PixiLines(graphics, data, lineW, color) {
   let total, i
   if (data.drawing.value == 1) {

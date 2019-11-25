@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
     PI2,
     getCurrent

@@ -1,3 +1,4 @@
+/* eslint-disable */
 export function PixiColor (no, data, color) {
   let cTotal = color.length
   const cur = (no + (cTotal * (Math.abs((no / 10) | 0) + 1))) % cTotal
