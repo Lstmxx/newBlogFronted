@@ -10,7 +10,7 @@ function checkToken (promiseCallBack : Function, config : Object, resolve, rejec
         localStorage.setItem('token', responseData.data.data.token)
         promiseCallBack(config, responseData.data.data.token).then((response) => {
           if (!response.msg) {
-            resolve(response.data)
+            resolve(response.data.data)
           }
         }).catch((err) => {
           reject(err)
@@ -42,7 +42,7 @@ export function login (config) : Promise<any> {
   return new Promise((resolve, reject) => {
     baseLogin(config).then((response) => {
       if (!response.msg) {
-        resolve(response.data)
+        resolve(response.data.data)
       } else {
         reject(response.msg)
       }

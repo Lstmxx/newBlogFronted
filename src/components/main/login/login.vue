@@ -45,7 +45,6 @@ export default {
       (this as any).$emit('input', false)
     },
     submit (type : String) :void {
-      console.log('helo')
       if ((this as any).usernameValid && (this as any).passwordValid) {
         let config = {
           url: type === 'login' ? '/login' : '/register',
@@ -55,7 +54,9 @@ export default {
           }
         }
         login(config).then((responseData) => {
-          console.log(responseData)
+          localStorage.setItem('token', responseData.token)
+          localStorage.setItem('userName', responseData.userName);
+          (this as any).$emit('on-login-success')
         }).catch((err) => {
           console.log(err)
         })

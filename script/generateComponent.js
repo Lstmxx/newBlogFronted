@@ -25,10 +25,11 @@ const generateFile = (path, data) => {
     })
   })
 }
-function doExistDirectoryCreate(directory) {
+function doExistDirectoryCreate (directory) {
   return new Promise((resolve) => {
-    fs.mkdir(directory, error => {
+    fs.mkdir(directory, { recursive: true }, error => {
       if (error) {
+        errorLog(error)
         errorLog('8行，创建目录失败')
       } else {
         successLog(`创建目录${directory}成功！`)
@@ -43,9 +44,13 @@ const index = 'index.ts'
 // 需要在哪个路径自行修改
 let basePath = 'src/components/'
 log('请输入需要新建的组件名：')
-process.stdin.on('data', async chunk=> {
-  const inputName = String(chunk).trim().toString()
-  basePath = basePath + inputName
+process.stdin.on('data', async chunk => {
+  let input = String(chunk).trim().toString().split(' ')
+  log(input)
+  const fatherName = input[0]
+  const inputName = input[1]
+  basePath = basePath + fatherName + '/' + inputName
+  log(basePath)
   const componentDirectory = resolve(`../${basePath}`) + '\\'
   componentName = inputName + '.vue'
   lessName = inputName + '.less'
