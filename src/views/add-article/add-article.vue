@@ -9,7 +9,7 @@ export default {
   name: 'AddArticle',
   data () {
     return {
-      content: '',
+      content: ''
     }
   }
 }

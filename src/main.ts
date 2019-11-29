@@ -5,6 +5,7 @@ import store from './store'
 import './registerServiceWorker'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+import './assets/icon/index'
 
 Vue.use(mavonEditor)
 Vue.config.productionTip = false

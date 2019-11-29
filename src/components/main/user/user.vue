@@ -9,25 +9,61 @@
       @mouseleave="selectOption = false"
       >
         <ul>
-          <li>test</li>
-          <li>test2</li>
+          <li
+          v-for="(option, index) in optionList" :key="index"
+          @click="toOptionPage(option.path)"
+          >
+          <div>
+            <svg-icon :iconClass="option.icon"></svg-icon>
+            <span>{{option.name}}</span>
+          </div>
+          </li>
         </ul>
       </div>
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 export default {
   name: 'User',
   mounted () {
-    console.log('usergo')
-    this.userName = localStorage.getItem('userName') || ''
+    (this as any).userName = localStorage.getItem('userName') || ''
   },
   data () {
     return {
       userName: '',
       selectOption: false,
-      imagePath: 'https://b-gold-cdn.xitu.io/v3/static/img/frontend.1dae74a.png'
+      imagePath: 'https://b-gold-cdn.xitu.io/v3/static/img/frontend.1dae74a.png',
+      optionList: [
+        {
+          name: '写文章',
+          path: 'addArticle',
+          icon: 'write'
+        },
+        {
+          name: '我的主页',
+          path: '',
+          icon: 'user'
+        },
+        {
+          name: '提醒',
+          path: '',
+          icon: 'notice'
+        },
+        {
+          name: '登出',
+          path: '',
+          icon: 'logout'
+        }
+      ]
+    }
+  },
+  methods: {
+    toOptionPage (path) {
+      console.log(path);
+      (this as any).$router.push({
+        name: path
+      })
     }
   }
 }
