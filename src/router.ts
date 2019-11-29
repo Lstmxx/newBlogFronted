@@ -50,7 +50,7 @@ export default new Router({
         {
           path: '/about',
           name: 'about',
-          component: () => import('./views/about/index')
+          component: () => import('./views/add-article/index')
         }
       ]
     }
