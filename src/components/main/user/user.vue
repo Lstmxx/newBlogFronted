@@ -13,10 +13,10 @@
           v-for="(option, index) in optionList" :key="index"
           @click="toOptionPage(option.path)"
           >
-          <div>
-            <svg-icon :iconClass="option.icon"></svg-icon>
-            <span>{{option.name}}</span>
-          </div>
+            <div>
+              <svg-icon :iconClass="option.icon"></svg-icon>
+              <span>{{option.name}}</span>
+            </div>
           </li>
         </ul>
       </div>

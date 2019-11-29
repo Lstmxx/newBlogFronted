@@ -4,7 +4,7 @@
   </div>
 </template>
 <script >
-import LeonSans from '../../libs/leon/src/index'
+import LeonSans from '_l/leon/src/index'
 import { TweenMax, Power4 } from 'gsap'
 export default {
   name: 'WebsiteTitle',
@@ -60,7 +60,7 @@ export default {
       }
       requestAnimationFrame(animate)
     },
-    update () {
+    updateCanvas () {
       this.init()
       this.draw()
     }
@@ -69,6 +69,12 @@ export default {
     this['$nextTick'](() => {
       this.init()
       this.draw()
+      let that = this
+      window.onresize = () => {
+        return (() => {
+          that.updateCanvas()
+        })()
+      }
     })
   }
 }

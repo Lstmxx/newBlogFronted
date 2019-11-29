@@ -1,4 +1,5 @@
 import service from './axios/axios'
+import axios from 'axios'
 
 export function baseGetDetail (config : any, token : string) : Promise<any> {
   let headers = {
@@ -61,4 +62,13 @@ export function getToken () : Promise<any> {
     method: 'POST'
   }
   return service.request(config)
+}
+
+export function upLoadFile (payload, progressCallback) : Promise<any> {
+  let config = {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    onUploadProgress: progressCallback
+  }
+  const baseURL = process.env.NODE_ENV === 'development' ? 'http://www.myblog.com/api' : ''
+  return axios.post(baseURL + '/up-load', payload, config)
 }

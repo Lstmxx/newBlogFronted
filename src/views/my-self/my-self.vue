@@ -11,7 +11,7 @@
   </div>
 </template>
 <script lang="ts">
-import blogHead from '../../components/website-title/index'
+import blogHead from '../../components/my-self/website-title/index'
 export default {
   name: 'MySelf',
   components: {

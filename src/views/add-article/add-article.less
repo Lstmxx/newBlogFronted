@@ -1,3 +1,53 @@
+.scroll-bar{
+  /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+  &::-webkit-scrollbar{
+    width: 6px;
+    height: 6px;
+    background-color: white;
+  }
+  /*定义滚动条轨道 内阴影+圆角*/
+  &::-webkit-scrollbar-track{
+    border-radius: 10px;
+    background-color: white;
+  }
+  /*定义滑块 内阴影+圆角*/
+  &::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: #9E9E9E;
+  }
+}
+.base{
+  max-height: 600px;
+  min-height: 600px;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  border: 0;
+  border: 1px solid #ecedf1;
+  background: white;
+}
 .add-article{
-  padding: 20px 20px;
+  padding: 20px 20px 20px 0px;
+  text-align: left;
+  .markdown{
+    .row;
+    justify-content: space-between;
+    .origin{
+      .scroll-bar;
+      .base;
+      width: 50%;
+      max-width: calc(50% - 20px);
+      padding: 10px;
+      border-right: 0;
+    }
+    .marked{
+      .scroll-bar;
+      .base;
+      width: 50%;
+      max-width: calc(50% - 32px);
+      max-height: 620px;
+      min-height: 620px;
+      margin: 0!important;
+      padding: 0px 16px;
+    }
+  }
 }
