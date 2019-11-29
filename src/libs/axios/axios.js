@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { baseURL } from '../../config/config'
 const showStatus = (status) => {
   let message = ''
   // 这一坨代码可以使用策略模式进行优化
@@ -43,7 +44,7 @@ const showStatus = (status) => {
 }
 
 const service = axios.create({
-  baseURL: process.env.NODE_ENV === 'development' ? 'http://www.myblog.com/api' : '',
+  baseURL: baseURL,
   timeout: 6000,
   responseType: 'application/json',
   headers: {

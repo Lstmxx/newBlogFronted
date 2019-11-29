@@ -13,6 +13,7 @@
 <script>
 import marked from 'marked'
 import { upLoad } from '_l/request'
+import { baseImageUrl } from '../../config/config'
 export default {
   name: 'AddArticle',
   data () {
@@ -32,21 +33,65 @@ export default {
     getImage (e) {
       e.preventDefault()
       e.stopPropagation()
-      const file = e.dataTransfer.files[0]
+      let file = e.dataTransfer.files[0]
       if (!file.type.includes('image')) {
         console.log('请上传图片文件')
         return
       }
-      let param = new FormData()
-      param.append('image', file)
-      let getProgress = (e) => {
-        console.log(((e.loaded / e.total * 100) | 0) + '%')
+      let reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = (e) => {
+        console.log(e)
+        let img = new Image()
+        img.src = e.target.result
+        img.onload = () => {
+          if (img.width > 300 || img.height > 300) {
+            let canvas = document.createElement('canvas')
+            let context = canvas.getContext('2d')
+            let widthScale = 0
+            let scale = 0
+            if (img.width > img.height) {
+              scale = img.height / 300
+            } else if (img.width < img.height) {
+            } else {
+            }
+            const width = parseInt(img.width * widthScale)
+            const height = parseInt(img.height * heightScale)
+            canvas.width = width
+            canvas.height = height
+            context.drawImage(img, 0, 0, width, height)
+            canvas.toBlob((blob) => {
+              console.log(blob)
+              blob.name = file.name
+              let param = new FormData()
+              param.append('image', blob)
+              let getProgress = (e) => {
+                console.log(1)
+                console.log(((e.loaded / e.total * 100) | 0) + '%')
+              }
+              upLoad(param, getProgress).then((responseData) => {
+                this.content += `![avatar](${baseImageUrl + responseData.imageName})`
+                console.log(responseData)
+              }).catch((err) => {
+                console.log(err)
+              })
+            })
+          } else {
+            let param = new FormData()
+            param.append('image', file)
+            let getProgress = (e) => {
+              console.log(1)
+              console.log(((e.loaded / e.total * 100) | 0) + '%')
+            }
+            upLoad(param, getProgress).then((responseData) => {
+              this.content += `![avatar](${baseImageUrl + responseData.imageName})`
+              console.log(responseData)
+            }).catch((err) => {
+              console.log(err)
+            })
+          }
+        }
       }
-      upLoad(param, getProgress).then((responseData) => {
-        console.log(responseData)
-      }).catch((err) => {
-        console.log(err)
-      })
       console.log(file)
     },
     addImage (fileName, imageFIle) {
