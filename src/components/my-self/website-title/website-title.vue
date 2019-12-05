@@ -10,7 +10,9 @@ export default {
   name: 'WebsiteTitle',
   data () {
     return {
-      leon: {}
+      leon: {},
+      devicePixelRatio: 0,
+      width: 0
     }
   },
   methods: {
@@ -34,28 +36,32 @@ export default {
       let leon, canvas, ctx
       let websiteTitle = document.getElementsByClassName('websiteTitle')[0]
       const sw = window.screen.width
-      const sh = window.screen.height
-      const pixelRatio = window.devicePixelRatio * websiteTitle.offsetWidth / sw
+      this.devicePixelRatio = window.devicePixelRatio
+      this.width = websiteTitle.offsetWidth
+      const pixelRatio = websiteTitle.offsetWidth / sw
       canvas = document.getElementById('canvas')
       ctx = canvas.getContext('2d')
-      canvas.width = sw * pixelRatio
-      canvas.height = sh * pixelRatio
+      // canvas.width = websiteTitle.offsetWidth * window.devicePixelRatio
+      // canvas.height = websiteTitle.offsetWidth * 3 / 4 * window.devicePixelRatio
       // canvas.style.width = sw + 'px'
       // canvas.style.height = sh + 'px'
-      ctx.scale(pixelRatio, pixelRatio)
+      // ctx.scale(1 / window.devicePixelRatio, 1 / window.devicePixelRatio)
+      // canvas.width = websiteTitle.offsetWidth
+      // canvas.height = websiteTitle.offsetWidth * 3 / 4
       leon = new LeonSans({
         text: 'Lstmxx',
         color: ['#363636'],
-        size: 500,
-        weight: 200
+        size: 100,
+        weight: 350
       })
       this.leon = leon
       function animate (t) {
         requestAnimationFrame(animate)
-        ctx.clearRect(0, 0, sw, sh)
-        const x = (sw - leon.rect.w) / 2
-        const y = (sh - leon.rect.h) / 2
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        const x = (canvas.width - leon.rect.w) / 2
+        const y = (canvas.height - leon.rect.h) / 2
         leon.position(x, y)
+        // leon.position(0, 0)
         leon.draw(ctx)
       }
       requestAnimationFrame(animate)

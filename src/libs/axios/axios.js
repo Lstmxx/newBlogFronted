@@ -91,9 +91,10 @@ service.interceptors.response.use((response) => {
   }
   return { status, data, msg }
 }, (error) => {
+  console.log(error)
   error.data = {}
   error.data.msg = '有毛病'
-  return Promise.resolve(error)
+  return Promise.reject(error)
 })
 
 export default service

@@ -1,4 +1,4 @@
-import { baseGetDetail, baseGetList, baseLogin, getToken, upLoadFile } from './requestApi'
+import { baseGetDetail, baseGetList, baseLogin, getToken, upLoadFile, baseGetUserInfo } from './requestApi'
 
 function checkToken (promiseCallBack : Function, config : Object, resolve, reject) {
   promiseCallBack(config).then((response) => {
@@ -55,6 +55,21 @@ export function login (config) : Promise<any> {
 export function upLoad (config, callBack) : Promise<any> {
   return new Promise((resolve, reject) => {
     upLoadFile(config, callBack).then((response) => {
+      if (!response.msg) {
+        resolve(response.data.data)
+      } else {
+        reject(response.msg)
+      }
+    }).catch((err) => {
+      reject(err)
+    })
+  })
+}
+
+export function getUserInfo () : Promise<any> {
+  return new Promise((resolve, reject) => {
+    baseGetUserInfo().then((response) => {
+      console.log(response)
       if (!response.msg) {
         resolve(response.data.data)
       } else {

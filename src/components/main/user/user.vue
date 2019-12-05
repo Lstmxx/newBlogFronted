@@ -27,7 +27,7 @@
 export default {
   name: 'User',
   mounted () {
-    (this as any).userName = localStorage.getItem('userName') || ''
+    (this as any).userName = sessionStorage.getItem('userName') || ''
   },
   data () {
     return {

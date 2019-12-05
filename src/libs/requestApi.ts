@@ -72,3 +72,23 @@ export function upLoadFile (payload, progressCallback) : Promise<any> {
   const baseURL = process.env.NODE_ENV === 'development' ? 'http://www.myblog.com/api' : ''
   return axios.post(baseURL + '/up-load', payload, config)
 }
+
+export function baseGetUserInfo () : Promise<any> {
+  let headers = {
+    common: {
+      token: localStorage.getItem('token') || ''
+    },
+    get: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+    },
+    post: {
+      'Content-Type': 'application/json;charset=utf-8'
+    }
+  }
+  const config = {
+    headers,
+    url: '/user-info',
+    method: 'POST'
+  }
+  return service.request(config)
+}

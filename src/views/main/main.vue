@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <div class="main">
     <div class="left">
@@ -25,6 +26,7 @@ import Vue from 'vue'
 import MySelf from '@/views/my-self/index'
 import Login from '@/components/main/login/index'
 import User from '@/components/main/user/index'
+import { getUserInfo } from '@/libs/request'
 export default Vue.extend({
   name: 'Main',
   props: {
@@ -60,12 +62,52 @@ export default Vue.extend({
           name: name
         })
       }
+    },
+    // test () {
+    //   function arrayMap (callback, args) {
+    //     let that = (this as any)
+    //     if (this === null || this === undefined) {
+    //       throw new TypeError("Cannot read property 'map' of null or undefined")
+    //     }
+    //     if (Object.prototype.toString.call(callback) !== '[object Function]') {
+    //       throw new TypeError(callback + 'is not a function')
+    //     }
+    //     let O = Object(this)
+    //     let a = args
+    //     let len = O.length >>> 0
+    //     let result = new Array(len)
+    //     for (let index = 0; index < len; index++) {
+    //       if (index in O) {
+    //         let value = O[index]
+    //         let mappedValue = callback.call(this, a, value, index, O)
+    //         result[index] = mappedValue
+    //       }
+    //     }
+    //     return result
+    //   }
+    //   Array.prototype.map = arrayMap
+    //   let test = [{ a: 1, b: 2 }, { a: 1, b: 2 }, { a: 1, b: 2 }]
+    //   let test1 = test.map((arg, data, index, array) => {
+    //     console.log(arg)
+    //     console.log(data)
+    //     console.log(index)
+    //     return (data as any).a
+    //   }, 2)
+    //   console.log(test1)
+    // },
+    loadUserInfo () {
+      getUserInfo().then((responseData) => {
+        console.log(responseData)
+        sessionStorage.setItem('userName', responseData.userInfo.name);
+        (this as any).loginSuccess()
+      }).catch((err) => {
+        console.log(err)
+      })
     }
   },
   mounted () {
-    if (localStorage.getItem('userName')) {
-      (this as any).loginSuccess()
-    }
+    (this as any).loadUserInfo()
+    console.log(window.devicePixelRatio)
     window.addEventListener('scroll', (this as any).menu, true)
   }
 })

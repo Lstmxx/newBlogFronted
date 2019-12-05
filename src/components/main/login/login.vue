@@ -55,7 +55,7 @@ export default {
         }
         login(config).then((responseData) => {
           localStorage.setItem('token', responseData.token)
-          localStorage.setItem('userName', responseData.userName);
+          sessionStorage.setItem('userName', responseData.userName);
           (this as any).$emit('on-login-success')
         }).catch((err) => {
           console.log(err)

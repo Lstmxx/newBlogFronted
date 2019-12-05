@@ -3,8 +3,8 @@
     <div class="tag-and-title">
     </div>
     <div class="markdown">
-      <textarea class="origin" v-model="content" @drop="getImage"></textarea>
-      <div class="marked" v-highlight v-html="markedContent"></div>
+      <textarea class="origin" v-model="content" @drop="getImage" v-if="showContent"></textarea>
+      <div :class="{ 'marked': true, 'show-full-marked': !showContent }" v-highlight v-html="markedContent"></div>
     </div>
     <!-- <mavon-editor v-model="content" @imgAdd="addImage" @imgDel="delImage"></mavon-editor> -->
   </div>
@@ -18,10 +18,12 @@ export default {
   name: 'AddArticle',
   data () {
     return {
+      showContent: true,
       content: '',
       markedContent: '',
       tag: '',
-      imageList: {}
+      imageList: {},
+      maxImageSize: 900
     }
   },
   watch: {
@@ -40,37 +42,39 @@ export default {
       }
       let reader = new FileReader()
       reader.readAsDataURL(file)
+      const devicePixelRatio = window.devicePixelRatio
       reader.onload = (e) => {
         console.log(e)
         let img = new Image()
         img.src = e.target.result
         img.onload = () => {
-          if (img.width > 300 || img.height > 300) {
+          if (img.width > this.maxImageSize || img.height > this.maxImageSize) {
             let canvas = document.createElement('canvas')
             let context = canvas.getContext('2d')
             let widthScale = 0
             let scale = 0
+            let width = this.maxImageSize
+            let height = this.maxImageSize
             if (img.width > img.height) {
-              scale = img.height / 300
+              height = this.maxImageSize / img.width * img.height
             } else if (img.width < img.height) {
-            } else {
+              width = this.maxImageSize / img.height * img.width
             }
-            const width = parseInt(img.width * widthScale)
-            const height = parseInt(img.height * heightScale)
+            width *= devicePixelRatio
+            height *= devicePixelRatio
             canvas.width = width
             canvas.height = height
             context.drawImage(img, 0, 0, width, height)
             canvas.toBlob((blob) => {
-              console.log(blob)
-              blob.name = file.name
               let param = new FormData()
-              param.append('image', blob)
+              param.append('image', blob, file.name)
               let getProgress = (e) => {
-                console.log(1)
                 console.log(((e.loaded / e.total * 100) | 0) + '%')
               }
               upLoad(param, getProgress).then((responseData) => {
-                this.content += `![avatar](${baseImageUrl + responseData.imageName})`
+                this.content += `<div align=center>
+  <img src="${baseImageUrl + responseData.imageName}"/>
+</div>`
                 console.log(responseData)
               }).catch((err) => {
                 console.log(err)
@@ -84,7 +88,9 @@ export default {
               console.log(((e.loaded / e.total * 100) | 0) + '%')
             }
             upLoad(param, getProgress).then((responseData) => {
-              this.content += `![avatar](${baseImageUrl + responseData.imageName})`
+              this.content += `<div align=center>
+  <img src="${baseImageUrl + responseData.imageName}"/>
+</div>`
               console.log(responseData)
             }).catch((err) => {
               console.log(err)
@@ -121,6 +127,14 @@ export default {
     })
   },
   mounted () {
+    document.onkeydown = (e) => {
+      let keyCode = e.keyCode || e.which || e.charCode
+      let altKey = e.altKey
+      if (altKey && keyCode === 80) {
+        this.showContent = !this.showContent
+        console.log('yes')
+      }
+    }
     this.initMarkdownPlace()
   }
 }
