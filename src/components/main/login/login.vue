@@ -54,9 +54,13 @@ export default {
           }
         }
         login(config).then((responseData) => {
-          localStorage.setItem('token', responseData.token)
-          sessionStorage.setItem('userName', responseData.userName);
-          (this as any).$emit('on-login-success')
+          if (type === 'register') {
+            this.submit('login')
+          } else if (type === 'login') {
+            localStorage.setItem('token', responseData.token)
+            sessionStorage.setItem('userName', responseData.userName);
+            (this as any).$emit('on-login-success')
+          }
         }).catch((err) => {
           console.log(err)
         })

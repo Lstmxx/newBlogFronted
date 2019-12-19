@@ -1,10 +1,15 @@
 <template>
   <div class="add-article">
     <div class="tag-and-title">
+      <select class="tag" v-model="article.tagId">
+        <option v-for="(tag, index) in tagList" :key="index" :value="tag.id">{{tag.tag_name}}</option>
+      </select>
+      <input class="title" type="text" v-model="article.name" placeholder="文章标题搞快点">
+      <MyButton text="提交" @click="saveArticle"></MyButton>
     </div>
     <div class="markdown">
-      <textarea class="origin" v-model="content" @drop="getImage" v-if="showContent"></textarea>
-      <div :class="{ 'marked': true, 'show-full-marked': !showContent }" v-highlight v-html="markedContent"></div>
+      <textarea class="origin" v-model="article.content" @drop="getImage" v-if="showContent"></textarea>
+      <div :class="{ 'marked': true, 'show-full-marked': !showContent }" v-highlight v-html="article.markedContent"></div>
     </div>
     <!-- <mavon-editor v-model="content" @imgAdd="addImage" @imgDel="delImage"></mavon-editor> -->
   </div>
@@ -12,23 +17,36 @@
 
 <script>
 import marked from 'marked'
-import { upLoad } from '_l/request'
+import { upLoad, getList } from '_l/request'
 import { baseImageUrl } from '../../config/config'
+import MyButton from '@/components/base/button/index'
 export default {
   name: 'AddArticle',
+  components: {
+    MyButton
+  },
+  props: {
+    test: {
+      default: 0,
+      type: Number
+    }
+  },
   data () {
     return {
       showContent: true,
-      content: '',
-      markedContent: '',
-      tag: '',
-      imageList: {},
+      article: {
+        name: '',
+        tagId: 1,
+        markedContent: '',
+        content: ''
+      },
+      tagList: [],
       maxImageSize: 900
     }
   },
   watch: {
     content () {
-      this.markedContent = marked(this.content)
+      this.article.markedContent = marked(this.article.content)
     }
   },
   methods: {
@@ -100,12 +118,8 @@ export default {
       }
       console.log(file)
     },
-    addImage (fileName, imageFIle) {
-      console.log(fileName)
-      console.log(imageFIle)
-    },
-    delImage (fileName) {
-      console.log(fileName)
+    saveArticle () {
+
     },
     initMarkdownPlace () {
       let dropEle = document.querySelector('.origin')
@@ -119,10 +133,23 @@ export default {
         dropEle.addEventListener('dragleave', stop, false)
         dropEle.addEventListener('drop', stop, false)
       }
+    },
+    loadTagList () {
+      let config = {
+        url: '/tag/list'
+      }
+      getList(config).then((responseData) => {
+        console.log(responseData)
+        this.tagList = responseData.tagList
+        // console.log(responseData)
+      }).catch((err) => {
+        console.log(err)
+      })
     }
   },
   beforeRouteEnter (to, from, next) {
     next((vm) => {
+      vm.loadTagList()
       vm.initMarkdownPlace()
     })
   },

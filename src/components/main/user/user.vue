@@ -62,7 +62,10 @@ export default {
     toOptionPage (path) {
       console.log(path);
       (this as any).$router.push({
-        name: path
+        name: path,
+        query: {
+          test: 2
+        }
       })
     }
   }

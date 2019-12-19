@@ -3,7 +3,7 @@ import { baseGetDetail, baseGetList, baseLogin, getToken, upLoadFile, baseGetUse
 function checkToken (promiseCallBack : Function, config : Object, resolve, reject) {
   promiseCallBack(config).then((response) => {
     if (!response.msg) {
-      resolve(response.data)
+      resolve(response.data.data)
     }
     if (response.status === 401) {
       getToken().then((responseData) => {

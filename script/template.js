@@ -34,7 +34,7 @@ export default {
     // let res = componentName
     let res = handleComponentName(componentName)
     return `import ${res} from './${componentName}.vue'
-export default ${res}`
+export default ${res}\n`
   },
   lessTemplate: componentName => {
     let res = handleComponentName(componentName)
