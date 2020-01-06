@@ -1,31 +1,41 @@
 /* eslint-disable */
 <template>
   <div class="main">
-    <div class="left">
-      <MySelf @turn-to-page="handleTurnToPage" :selectedPage="selectedPage" :scroll="scroll" />
-    </div>
-    <div class="content">
-      <keep-alive>
-        <router-view/>
-      </keep-alive>
-    </div>
-    <div class="right">
+    <div class="title">
+      <div class="logo-menu">
+        <Logo></Logo>
+        <Menu
+        @turn-to-page="handleTurnToPage"
+        :selectedPage="selectedPage"
+        :scroll="scroll">
+        </Menu>
+      </div>
       <div class="login" v-if="!showUser">
         <span :class="{selected: loginShow, notSelected: !loginShow}" @click.stop="loginShow = true">Login</span>
       </div>
       <div class="login-success" v-else>
-        <User @to-option="toOption"></User>
-        <div class="commit"></div>
+        <User @to-option="toOption" style="z-index: 3"></User>
       </div>
+    </div>
+    <div class="content">
+      <div class="page" style="flex: 2">
+        <keep-alive>
+          <router-view/>
+        </keep-alive>
+      </div>
+      <div class="border" style="position: sticky;top: 103px;"></div>
+      <MySelf style="flex: 1" :scroll="scroll"/>
     </div>
     <Login v-if="loginShow" v-model="loginShow" @on-login-success="loginSuccess"></Login>
   </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import MySelf from '@/views/my-self/index'
+import MySelf from '@/components/my-self/my-self/index'
 import Login from '@/components/main/login/index'
 import User from '@/components/main/user/index'
+import Menu from '@/components/main/menu/index'
+import Logo from '@/components/main/logo/index'
 import { getUserInfo } from '@/libs/request'
 export default Vue.extend({
   name: 'Main',
@@ -35,7 +45,9 @@ export default Vue.extend({
   components: {
     MySelf,
     Login,
-    User
+    User,
+    Menu,
+    Logo
   },
   data () {
     return {
@@ -54,6 +66,7 @@ export default Vue.extend({
     },
     menu () {
       (this as any).scroll = document.getElementsByClassName('main')[0].scrollTop
+      console.log(document.getElementsByClassName('main')[0].scrollTop)
     },
     handleTurnToPage (name: string) : void {
       if (this['$route'].path !== `/${name}`) {

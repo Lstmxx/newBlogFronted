@@ -52,9 +52,9 @@ export function login (config) : Promise<any> {
   })
 }
 
-export function upLoad (config, callBack) : Promise<any> {
+export function upLoad (config, callBack, type) : Promise<any> {
   return new Promise((resolve, reject) => {
-    upLoadFile(config, callBack).then((response) => {
+    upLoadFile(config, callBack, type).then((response) => {
       if (!response.msg) {
         resolve(response.data.data)
       } else {

@@ -5,7 +5,7 @@
         <option v-for="(tag, index) in tagList" :key="index" :value="tag.id">{{tag.tag_name}}</option>
       </select>
       <input class="title" type="text" v-model="article.name" placeholder="文章标题搞快点">
-      <MyButton text="提交" @click="saveArticle"></MyButton>
+      <MyButton text="提交" @on-click="saveArticle"></MyButton>
     </div>
     <div class="markdown">
       <textarea class="origin" v-model="article.content" @drop="getImage" v-if="showContent"></textarea>
@@ -18,7 +18,7 @@
 <script>
 import marked from 'marked'
 import { upLoad, getList } from '_l/request'
-import { baseImageUrl } from '../../config/config'
+import { baseImageUrl } from '@/config/config'
 import MyButton from '@/components/base/button/index'
 export default {
   name: 'AddArticle',
@@ -45,7 +45,7 @@ export default {
     }
   },
   watch: {
-    content () {
+    'article.content' () {
       this.article.markedContent = marked(this.article.content)
     }
   },
@@ -62,7 +62,6 @@ export default {
       reader.readAsDataURL(file)
       const devicePixelRatio = window.devicePixelRatio
       reader.onload = (e) => {
-        console.log(e)
         let img = new Image()
         img.src = e.target.result
         img.onload = () => {
@@ -90,7 +89,7 @@ export default {
                 console.log(((e.loaded / e.total * 100) | 0) + '%')
               }
               upLoad(param, getProgress).then((responseData) => {
-                this.content += `<div align=center>
+                this.article.content += `<div align=center>
   <img src="${baseImageUrl + responseData.imageName}"/>
 </div>`
                 console.log(responseData)
@@ -105,8 +104,8 @@ export default {
               console.log(1)
               console.log(((e.loaded / e.total * 100) | 0) + '%')
             }
-            upLoad(param, getProgress).then((responseData) => {
-              this.content += `<div align=center>
+            upLoad(param, getProgress, 'image').then((responseData) => {
+              this.article.content += `<div align=center>
   <img src="${baseImageUrl + responseData.imageName}"/>
 </div>`
               console.log(responseData)
@@ -119,7 +118,20 @@ export default {
       console.log(file)
     },
     saveArticle () {
-
+      let markdownFile = new File(this.article.content, `${this.article.name}.md`, {
+        type: 'text/plain'
+      })
+      // console.log(markdownFile)
+      // let param = new FormData()
+      // param.append('image', file)
+      // let getProgress = (e) => {
+      //   console.log(1)
+      //   console.log(((e.loaded / e.total * 100) | 0) + '%')
+      // }
+      // upLoad(param, getProgress, 'markdown').then((responseData) => {
+      // }).catch((err) => {
+      //   console.log(err)
+      // })
     },
     initMarkdownPlace () {
       let dropEle = document.querySelector('.origin')

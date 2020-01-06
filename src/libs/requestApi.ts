@@ -64,13 +64,13 @@ export function getToken () : Promise<any> {
   return service.request(config)
 }
 
-export function upLoadFile (payload, progressCallback) : Promise<any> {
+export function upLoadFile (payload, progressCallback, type) : Promise<any> {
   let config = {
     headers: { 'Content-Type': 'multipart/form-data' },
     onUploadProgress: progressCallback
   }
   const baseURL = process.env.NODE_ENV === 'development' ? 'http://www.myblog.com/api' : ''
-  return axios.post(baseURL + '/up-load', payload, config)
+  return axios.post(baseURL + '/up-load/' + type, payload, config)
 }
 
 export function baseGetUserInfo () : Promise<any> {

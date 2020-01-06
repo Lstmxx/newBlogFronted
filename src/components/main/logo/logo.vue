@@ -1,5 +1,5 @@
 <template>
-  <div class="websiteTitle">
+  <div class="logo">
     <canvas id="canvas"></canvas>
   </div>
 </template>
@@ -10,9 +10,7 @@ export default {
   name: 'WebsiteTitle',
   data () {
     return {
-      leon: {},
-      devicePixelRatio: 0,
-      width: 0
+      leon: {}
     }
   },
   methods: {
@@ -34,15 +32,10 @@ export default {
     },
     init () {
       let leon, canvas, ctx
-      let websiteTitle = document.getElementsByClassName('websiteTitle')[0]
-      const sw = window.screen.width
-      this.devicePixelRatio = window.devicePixelRatio
-      this.width = websiteTitle.offsetWidth
-      const pixelRatio = websiteTitle.offsetWidth / sw
       canvas = document.getElementById('canvas')
       ctx = canvas.getContext('2d')
-      // canvas.width = websiteTitle.offsetWidth * window.devicePixelRatio
-      // canvas.height = websiteTitle.offsetWidth * 3 / 4 * window.devicePixelRatio
+      canvas.width = 180 * window.devicePixelRatio
+      canvas.height = 80 * window.devicePixelRatio
       // canvas.style.width = sw + 'px'
       // canvas.style.height = sh + 'px'
       // ctx.scale(1 / window.devicePixelRatio, 1 / window.devicePixelRatio)
@@ -51,14 +44,14 @@ export default {
       leon = new LeonSans({
         text: 'Lstmxx',
         color: ['#363636'],
-        size: 100,
-        weight: 350
+        size: 50,
+        weight: 400
       })
       this.leon = leon
       function animate (t) {
         requestAnimationFrame(animate)
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        const x = (canvas.width - leon.rect.w) / 2
+        const x = 0
         const y = (canvas.height - leon.rect.h) / 2
         leon.position(x, y)
         // leon.position(0, 0)
@@ -86,5 +79,5 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import './website-title.less';
+@import './logo.less';
 </style>

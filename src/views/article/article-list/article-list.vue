@@ -46,7 +46,7 @@ export default {
     },
     selectArticle (id: number) : void {
       this['$router'].push({
-        name: 'articleDetail',
+        name: 'article-detail',
         query: {
           id: String(id)
         }
