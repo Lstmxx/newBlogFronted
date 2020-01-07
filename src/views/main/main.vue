@@ -18,20 +18,15 @@
       </div>
     </div>
     <div class="content">
-      <div class="page" style="flex: 2">
-        <keep-alive>
-          <router-view/>
-        </keep-alive>
-      </div>
-      <div class="border" style="position: sticky;top: 103px;"></div>
-      <MySelf style="flex: 1" :scroll="scroll"/>
+      <keep-alive>
+        <router-view/>
+      </keep-alive>
     </div>
     <Login v-if="loginShow" v-model="loginShow" @on-login-success="loginSuccess"></Login>
   </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import MySelf from '@/components/my-self/my-self/index'
 import Login from '@/components/main/login/index'
 import User from '@/components/main/user/index'
 import Menu from '@/components/main/menu/index'
@@ -39,11 +34,7 @@ import Logo from '@/components/main/logo/index'
 import { getUserInfo } from '@/libs/request'
 export default Vue.extend({
   name: 'Main',
-  props: {
-    msg: String
-  },
   components: {
-    MySelf,
     Login,
     User,
     Menu,
@@ -65,8 +56,8 @@ export default Vue.extend({
       // (this as any).loginShow = false
     },
     menu () {
-      (this as any).scroll = document.getElementsByClassName('main')[0].scrollTop
-      console.log(document.getElementsByClassName('main')[0].scrollTop)
+      (this as any).scroll = document.getElementsByClassName('content')[0].scrollTop
+      console.log(document.getElementsByClassName('content')[0].scrollTop)
     },
     handleTurnToPage (name: string) : void {
       if (this['$route'].path !== `/${name}`) {

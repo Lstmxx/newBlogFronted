@@ -71,24 +71,25 @@ let vueRouter : Router = new Router({
       ]
     },
     {
-      path: '',
+      path: '/article',
+      redirect: '/article/list',
       name: 'article',
       component: Main,
       children: [
         {
-          path: '/article-list',
+          path: '/article/list',
           name: 'article-list',
           component: () => import(/* webpackChunkName: "article-list" */ './views/article/article-list/index')
         },
         {
-          path: '/article-detail',
+          path: '/article/detail',
           name: 'article-detail',
           component: () => import(/* webpackChunkName: "article-detail" */ './views/article/article-detail/index')
         },
         {
-          path: '/add-article',
+          path: '/article/add',
           name: 'addArticle',
-          component: () => import(/* webpackChunkName: "add-article" */ './views/article/add-article/index')
+          component: () => import(/* webpackChunkName: "add-article" */ './views/article/write-article/index')
         }
       ]
     },

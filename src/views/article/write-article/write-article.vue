@@ -1,10 +1,10 @@
 <template>
   <div class="add-article">
-    <div class="tag-and-title">
-      <select class="tag" v-model="article.tagId">
-        <option v-for="(tag, index) in tagList" :key="index" :value="tag.id">{{tag.tag_name}}</option>
-      </select>
-      <input class="title" type="text" v-model="article.name" placeholder="文章标题搞快点">
+    <div class="bar">
+      <div class="tag-and-title">
+        <MySelect :optionList="tagList" v-model="article.tagId" targetKey="id"/>
+        <input class="title" type="text" v-model="article.name" placeholder="文章标题搞快点">
+      </div>
       <MyButton text="提交" @on-click="saveArticle"></MyButton>
     </div>
     <div class="markdown">
@@ -20,16 +20,12 @@ import marked from 'marked'
 import { upLoad, getList } from '_l/request'
 import { baseImageUrl } from '@/config/config'
 import MyButton from '@/components/base/button/index'
+import MySelect from '@/components/base/select/index'
 export default {
-  name: 'AddArticle',
+  name: 'WrtieArticle',
   components: {
-    MyButton
-  },
-  props: {
-    test: {
-      default: 0,
-      type: Number
-    }
+    MyButton,
+    MySelect
   },
   data () {
     return {
@@ -152,7 +148,9 @@ export default {
       }
       getList(config).then((responseData) => {
         console.log(responseData)
-        this.tagList = responseData.tagList
+        this.tagList = responseData.tagList.map(data => {
+          return { name: data.tag_name, value: data.id }
+        })
         // console.log(responseData)
       }).catch((err) => {
         console.log(err)
@@ -180,5 +178,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import './add-article.less';
+@import './write-article.less';
 </style>

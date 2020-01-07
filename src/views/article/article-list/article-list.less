@@ -1,14 +1,30 @@
-.articleList{
+@import '~@less/base/border.less';
+.article{
+  .row;
+  justify-content: space-between;
   width: 100%;
-  padding: 20px 0px;
-  background-color: #fffffc;
-  transition: height 0.3s;
-  .footer{
-    .col;
+  .articleList{
+    flex: 2;
     width: 100%;
-    height: 100px;
-    button {
-      margin: auto;
+    padding: 20px 0px;
+    background-color: #fffffc;
+    transition: height 0.3s;
+    .footer{
+      .col;
+      width: 100%;
+      height: 100px;
+      button {
+        margin: auto;
+      }
+    }
+  }
+  .hot-list{
+    .col;
+    flex: 1;
+    .title{
+      font-size: 20px;
+      text-align: right;
+      margin-top: 20px;
     }
   }
 }

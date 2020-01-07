@@ -35,7 +35,7 @@ export default {
       canvas = document.getElementById('canvas')
       ctx = canvas.getContext('2d')
       canvas.width = 180 * window.devicePixelRatio
-      canvas.height = 80 * window.devicePixelRatio
+      canvas.height = 40 * window.devicePixelRatio
       // canvas.style.width = sw + 'px'
       // canvas.style.height = sh + 'px'
       // ctx.scale(1 / window.devicePixelRatio, 1 / window.devicePixelRatio)

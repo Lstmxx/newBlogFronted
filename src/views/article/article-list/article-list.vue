@@ -1,18 +1,32 @@
 <template>
-  <div class="articleList">
-    <ArticleDigest v-for="(articleData, index) in articleDataList" :key="index" :index="index" :articleData="articleData" @on-select="selectArticle"></ArticleDigest>
-    <div class="footer">
-      <button @click="loadMoreArticle">hello</button>
+  <div class="article">
+    <div class="articleList">
+      <ArticleDigest
+      v-for="(articleData, index) in articleDataList"
+      :key="index"
+      :index="index"
+      :articleData="articleData"
+      @on-select="selectArticle"/>
+      <div class="footer">
+        <button @click="loadMoreArticle">hello</button>
+      </div>
+    </div>
+    <div class="border" style="position: sticky;top: 103px;"></div>
+    <div class="hot-list">
+      <span class="title">近期热门</span>
+      <HotArticle />
     </div>
   </div>
 </template>
 <script lang="ts">
-import ArticleDigest from '@/components/article-digest/index'
+import ArticleDigest from '@/components/article/article-digest/index'
+import HotArticle from '@/components/article/hot-article/index'
 import { getList } from '@/libs/request'
 export default {
   name: 'ArticleList',
   components: {
-    ArticleDigest
+    ArticleDigest,
+    HotArticle
   },
   mounted () {
     this['loadMoreArticle']()

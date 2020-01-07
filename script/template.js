@@ -14,7 +14,7 @@ module.exports = {
     let res = handleComponentName(componentName)
     // let res = componentName
     return `<template>
-  <div class="${res[0].toLowerCase() + res.slice(1)}">
+  <div class="${componentName}">
   </div>
 </template>
 <script lang="ts">
@@ -38,7 +38,7 @@ export default ${res}\n`
   },
   lessTemplate: componentName => {
     let res = handleComponentName(componentName)
-    return `.${res[0].toLowerCase() + res.slice(1)}{
+    return `.${componentName}{
   height: 100%;
   width: 100%;
 }`

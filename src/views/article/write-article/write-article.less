@@ -27,12 +27,50 @@
 }
 .add-article{
   .col;
+  width: 100%;
   padding: 20px 20px;
   text-align: left;
-  margin-top: 60px;
-  .tag-and-title{
+  .bar{
     .row;
     justify-content: space-between;
+    .tag-and-title{
+      .row;
+      input{
+        width: 400px;
+        margin-left: 20px;
+        border-radius: 8px;
+        background-color: white;
+        border: 1px solid #ecedf1;
+        padding: 0px 10px;
+        outline: 0;
+        transition: all 0.3s;
+        &:focus{
+          outline: 0;
+          border: 1px solid #2f3e46;
+          border-radius: 8px;
+        }
+      }
+      select{
+        border-radius: 8px;
+        background-color: white;
+        border: 1px solid #ecedf1;
+        padding: 0px 10px;
+        outline: 0;
+        transition: all 0.3s;
+        &:focus{
+          outline: 0;
+          border: 1px solid #2f3e46;
+          border-radius: 8px;
+        }
+        option{
+          padding: 0px 10px;
+          color: blue;
+          border-top: 1px solid #ecedf1;
+          
+        }
+        
+      }
+    }
   }
   .markdown{
     .row;
