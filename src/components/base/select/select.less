@@ -1,17 +1,3 @@
-.show-option{
-  overflow: visible!important;
-  color: #353535!important;
-  border: 1px solid #2f3e46!important;
-  .icon{
-    transform: rotate(315deg);
-  }
-  ul{
-    opacity: 1!important;
-    li{
-      transform: translate(0, 0)!important;
-    }
-  }
-}
 .select{
   .row;
   position: relative;
@@ -22,7 +8,7 @@
   align-items: center;
   border-radius: 8px;
   border: 1px solid #ecedf1;
-  transition: all 0.3s;
+  transition: all 0.5s;
   .select-input{
     user-select: none;
     cursor: pointer;
@@ -39,9 +25,10 @@
   .icon{
     position: relative;
     right: 10px;
-    transition: all 0.3s;
+    transition: all 0.5s;
     width: 1em;
     height: 1em;
+    cursor: pointer;
     .base{
       content: '';
       position: absolute;
@@ -75,14 +62,45 @@
     left: 0px;
     opacity: 0;
     font-size: 14px;
+    transition: all 0.5s;
     .option{
       color: white;
-      transition: all 0.3s;
+      transition: all 0.5s;
       transform: translate(-100%, 0);
       background: #353535;
       padding: 6px 10px;
       cursor: pointer;
       margin-top: 6px;
+    }
+  }
+}
+
+.show-option{
+  overflow: visible;
+  color: #353535;
+  border: 1px solid #2f3e46;
+  .icon{
+    transform: rotate(315deg);
+  }
+  .option-list{
+    opacity: 1;
+    .option{
+      transform: translate(0, 0);
+    }
+  }
+}
+
+.option-leave{
+  overflow: visible;
+  color: #888888;
+  border-color: #ecedf1;
+  .icon{
+    transform: rotate(0deg);
+  }
+  .option-list{
+    opacity: 0;
+    .option{
+      transform: translate(100%, 0);
     }
   }
 }

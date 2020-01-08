@@ -121,5 +121,12 @@ let vueRouter : Router = new Router({
     }
   ]
 })
-
+vueRouter.beforeEach((to, from, next) => {
+  if (to.name === 'addArticle') {
+    
+    next()
+  } else {
+    next()
+  }
+})
 export default vueRouter

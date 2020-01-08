@@ -92,3 +92,24 @@ export function baseGetUserInfo () : Promise<any> {
   }
   return service.request(config)
 }
+
+export function baseStore (config) : Promise<any> {
+  let headers = {
+    common: {
+      token: localStorage.getItem('token') || ''
+    },
+    get: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+    },
+    post: {
+      'Content-Type': 'application/json;charset=utf-8'
+    }
+  }
+  const request = {
+    headers,
+    url: config.url + '/store',
+    method: 'POST',
+    data: config.data
+  }
+  return service.request(request)
+}

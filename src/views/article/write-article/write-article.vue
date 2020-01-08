@@ -2,7 +2,7 @@
   <div class="add-article">
     <div class="bar">
       <div class="tag-and-title">
-        <MySelect :optionList="tagList" v-model="article.tagId" targetKey="id"/>
+        <MySelect :optionList="tagList" v-model="article.tagId" targetKey="value"/>
         <input class="title" type="text" v-model="article.name" placeholder="文章标题搞快点">
       </div>
       <MyButton text="提交" @on-click="saveArticle"></MyButton>
@@ -17,7 +17,7 @@
 
 <script>
 import marked from 'marked'
-import { upLoad, getList } from '_l/request'
+import { upLoad, getList, store } from '_l/request'
 import { baseImageUrl } from '@/config/config'
 import MyButton from '@/components/base/button/index'
 import MySelect from '@/components/base/select/index'
@@ -84,7 +84,7 @@ export default {
               let getProgress = (e) => {
                 console.log(((e.loaded / e.total * 100) | 0) + '%')
               }
-              upLoad(param, getProgress).then((responseData) => {
+              upLoad(param, getProgress, 'image').then((responseData) => {
                 this.article.content += `<div align=center>
   <img src="${baseImageUrl + responseData.imageName}"/>
 </div>`
@@ -114,20 +114,17 @@ export default {
       console.log(file)
     },
     saveArticle () {
-      let markdownFile = new File(this.article.content, `${this.article.name}.md`, {
-        type: 'text/plain'
+      console.log(this.article)
+      const config = {
+        url: 'article',
+        data: {
+          article: this.article
+        }
+      }
+      store(config).then((responseData) => {
+      }).catch((err) => {
+        console.log(err)
       })
-      // console.log(markdownFile)
-      // let param = new FormData()
-      // param.append('image', file)
-      // let getProgress = (e) => {
-      //   console.log(1)
-      //   console.log(((e.loaded / e.total * 100) | 0) + '%')
-      // }
-      // upLoad(param, getProgress, 'markdown').then((responseData) => {
-      // }).catch((err) => {
-      //   console.log(err)
-      // })
     },
     initMarkdownPlace () {
       let dropEle = document.querySelector('.origin')

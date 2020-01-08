@@ -60,12 +60,8 @@ export default {
   },
   methods: {
     toOptionPage (path) {
-      console.log(path);
       (this as any).$router.push({
-        name: path,
-        query: {
-          test: 2
-        }
+        name: path
       })
     }
   }

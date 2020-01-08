@@ -1,4 +1,12 @@
-import { baseGetDetail, baseGetList, baseLogin, getToken, upLoadFile, baseGetUserInfo } from './requestApi'
+import {
+  baseGetDetail,
+  baseGetList,
+  baseLogin,
+  getToken,
+  upLoadFile,
+  baseGetUserInfo,
+  baseStore
+} from './requestApi'
 
 function checkToken (promiseCallBack : Function, config : Object, resolve, reject) {
   promiseCallBack(config).then((response) => {
@@ -70,6 +78,20 @@ export function getUserInfo () : Promise<any> {
   return new Promise((resolve, reject) => {
     baseGetUserInfo().then((response) => {
       console.log(response)
+      if (!response.msg) {
+        resolve(response.data.data)
+      } else {
+        reject(response.msg)
+      }
+    }).catch((err) => {
+      reject(err)
+    })
+  })
+}
+
+export function store (config) : Promise<any> {
+  return new Promise((resolve, reject) => {
+    baseStore(config).then((response) => {
       if (!response.msg) {
         resolve(response.data.data)
       } else {
