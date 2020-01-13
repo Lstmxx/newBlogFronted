@@ -23,7 +23,7 @@ import ArticleDigest from '@/components/article/article-digest/index'
 import HotArticle from '@/components/article/hot-article/index'
 import { getList } from '@/libs/request'
 export default {
-  name: 'ArticleList',
+  name: 'Article',
   components: {
     ArticleDigest,
     HotArticle
@@ -71,5 +71,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import './article-list.less';
+@import './article.less';
 </style>

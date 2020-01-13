@@ -29,7 +29,7 @@ export default {
         },
         {
           name: '文章',
-          routeName: 'article-list'
+          routeName: 'article'
         },
         {
           name: 'CSS-TRICK',

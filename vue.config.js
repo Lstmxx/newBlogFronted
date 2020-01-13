@@ -4,12 +4,15 @@ const path = require('path')
 const resolve = dir => {
   return path.join(__dirname, dir)
 }
-
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
   lintOnSave: true,
   devServer: {
     disableHostCheck: true
+  },
+  css: {
+    extract: process.env.NODE_ENV === 'production',
+    sourceMap: false
   },
   chainWebpack: config => {
     config.resolve.alias

@@ -111,7 +111,6 @@ export default Vue.extend({
   },
   mounted () {
     (this as any).loadUserInfo()
-    console.log(window.devicePixelRatio)
     window.addEventListener('scroll', (this as any).menu, true)
   }
 })
