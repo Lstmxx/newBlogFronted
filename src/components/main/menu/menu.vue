@@ -50,15 +50,14 @@ export default {
     }
   },
   mounted () {
-    const routeName = this['$route']['name'];
+    const routePath = this['$route'].path;
     (this as any).menuList.every((data, index) => {
-      if (data.routeName === routeName) {
+      if (routePath.includes(data.routeName)) {
         (this as any).selectedIndex = index
         return false
       }
       return true
     })
-    console.log(routeName)
   }
 }
 </script>

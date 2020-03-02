@@ -1,26 +1,22 @@
 <template>
-  <div class="articleDigest" @click="selectArticle">
-    <div class="articleTitle">
+  <div class="article-digest" @click="selectArticle">
+    <div class="title">
       <span>hello</span>
     </div>
-    <div class="contentWarp">
-      <div class="imageWarp">
+    <div class="describe">
+      <span>nothello</span>
+      <div class="image-warp">
         <div class="image" :style="{ 'background-image': `url(${imagePath})` }"></div>
       </div>
-      <div class="content">
-        <div class="summary">
-          <span>nothello</span>
-        </div>
-        <div class="footer">
-          <div class="pubilshTime">
-            <span>发布日期：</span>
-            <span>修改日期：</span>
-          </div>
-          <div class="readingTimes">
-            <span>1130</span>
-          </div>
-        </div>
+    </div>
+    <div class="footer">
+      <div class="statistics">
+        <svg-icon iconClass="watch"></svg-icon>
+        <span>4000</span>
+        <svg-icon iconClass="up"></svg-icon>
+        <span>3000</span>
       </div>
+      <span>2019-04-03</span>
     </div>
   </div>
 </template>

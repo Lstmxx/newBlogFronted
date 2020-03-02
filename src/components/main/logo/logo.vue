@@ -43,7 +43,7 @@ export default {
       // canvas.height = websiteTitle.offsetWidth * 3 / 4
       leon = new LeonSans({
         text: 'Lstmxx',
-        color: ['#363636'],
+        color: ['#fffffc'],
         size: 50,
         weight: 400
       })

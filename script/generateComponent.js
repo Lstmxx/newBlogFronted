@@ -42,13 +42,13 @@ let componentName = ''
 let lessName = ''
 const index = 'index.ts'
 // 需要在哪个路径自行修改
-let basePath = 'src/components/'
 log('请输入需要新建的组件名：')
 process.stdin.on('data', async chunk => {
   let input = String(chunk).trim().toString().split(' ')
   log(input)
-  const fatherName = input[0]
-  const inputName = input[1]
+  let basePath = `src/${input[0]}/`
+  const fatherName = input[1]
+  const inputName = input[2]
   basePath = basePath + fatherName + '/' + inputName
   log(basePath)
   const componentDirectory = resolve(`../${basePath}`) + '\\'
@@ -65,17 +65,17 @@ process.stdin.on('data', async chunk => {
     // 创建vue文件
     log(`正在创建${basePath + componentName}`)
     await generateFile(componentDirectory + componentName, vueTemplate(inputName))
-    successLog(`创建vue组件：${basePath + componentName}成功！`)
+    successLog(`创建vue组件：${basePath + '/' + componentName}成功！`)
 
     // 创建index文件
     log(`正在创建${basePath + index}`)
     await generateFile(componentDirectory + index, indexTemplate(inputName))
-    successLog(`创建index文件：${basePath + index}成功`)
+    successLog(`创建index文件：${basePath + '/' + index}成功`)
 
     // 创建less文件
     log(`正在创建${basePath + lessName}`)
     await generateFile(componentDirectory + lessName, lessTemplate(inputName))
-    successLog(`创建less文件：${basePath + lessName}成功！`)
+    successLog(`创建less文件：${basePath + '/' + lessName}成功！`)
 
     successLog(`创建成功！！！`)
   } catch (e) {

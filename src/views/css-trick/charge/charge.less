@@ -1,0 +1,50 @@
+.charge{
+  position: relative;
+  margin: auto;
+  height: 500px;
+  width: 100px;
+  background: blue;
+  .mask1{
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-52%) rotate(0deg);
+    background: white;
+    border-radius: 40%;
+    height: 500px;
+    width: 500px;
+    animation: c1 10s infinite linear;
+  }
+  .mask2{
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%) rotate(0deg);
+    background: white;
+    border-radius: 47%;
+    height: 500px;
+    width: 500px;
+    animation: c2 10s infinite linear;
+  }
+}
+
+@keyframes c1 {
+  0%{
+    bottom: 0px;
+    transform: translateX(-52%) rotateZ(0deg);
+  }
+  100%{
+    bottom: 100%;
+    transform: translateX(-52%) rotateZ(360deg);
+  }
+}
+@keyframes c2 {
+  0%{
+    bottom: 0px;
+    transform: translateX(-50%) rotateZ(0deg);
+  }
+  100%{
+    bottom: 100%;
+    transform: translateX(-50%) rotateZ(360deg);
+  }
+}
