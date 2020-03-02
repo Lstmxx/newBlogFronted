@@ -11,6 +11,9 @@ export default {
     iconClass: {
       type: String,
       required: true
+    },
+    color: {
+      type: String
     }
   },
   computed: {

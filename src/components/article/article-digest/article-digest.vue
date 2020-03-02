@@ -11,9 +11,9 @@
     </div>
     <div class="footer">
       <div class="statistics">
-        <svg-icon iconClass="watch"></svg-icon>
+        <svg-icon iconClass="watch" style="color: #353535"></svg-icon>
         <span>4000</span>
-        <svg-icon iconClass="up"></svg-icon>
+        <svg-icon iconClass="thumb-up-line" style="color: #353535"></svg-icon>
         <span>3000</span>
       </div>
       <span>2019-04-03</span>

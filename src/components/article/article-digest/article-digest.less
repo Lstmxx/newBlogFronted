@@ -1,15 +1,38 @@
 .article-digest{
   .col;
+  position: relative;
   align-items: flex-start;
-  margin-top: 10px;
-  background-color: white;
+  margin-top: 40px;
+  z-index: 2;
+  background-color: rgba(255, 255, 255);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3) inset,
+  0 .5em 1em rgba(0, 0, 0, 0.6);
+  // background-color: white;
   padding: 10px;
+  overflow: hidden;
   &:first-child{
     margin-top: 0px;
+  }
+  &::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    -webkit-filter: blur(80px);
+    -moz-filter: blur(80px);
+    -ms-filter: blur(80px);
+    -o-filter: blur(80px);
+    filter: blur(80px);
+    margin: -20px;
+    z-index: -1;
+    background: url(https://cn.bing.com/th?id=OHR.SeussianLandscape_ZH-CN0785428057_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp) fixed 0 center;
   }
   .title{
     width: 100%;
     font-size: 26px;
+    font-weight: 600;
     padding: 0px 0px 10px;
     border-bottom: 1px solid #353535;
     text-align: left;
@@ -19,7 +42,6 @@
     width: 100%;
     padding: 10px 0px;
     justify-content: space-between;
-    color: #888888;
     .image-warp{
       height: 80px;
       width: 80px;
@@ -43,11 +65,8 @@
     .statistics{
       .row;
       align-items: center;
-      color: #888888;
-      border: 1px solid #888888;
-      padding: 6px;
       span{
-        margin: 0px 10px;
+        margin: 0px 6px;
         font-size: 14px;
         &:last-child{
           margin-right: 0px;
