@@ -24,20 +24,22 @@
   </div>
 </template>
 <script lang="ts">
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'User',
-  mounted () {
-    (this as any).userName = sessionStorage.getItem('userName') || ''
+  computed: {
+    ...mapGetters({
+      userName: 'getUserName'
+    })
   },
   data () {
     return {
-      userName: '',
       selectOption: false,
       imagePath: 'https://b-gold-cdn.xitu.io/v3/static/img/frontend.1dae74a.png',
       optionList: [
         {
           name: '写文章',
-          path: 'addArticle',
+          path: 'write-article',
           icon: 'write'
         },
         {
@@ -59,10 +61,18 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'logout'
+    ]),
     toOptionPage (path) {
-      (this as any).$router.push({
-        name: path
-      })
+      console.log(path)
+      if (path) {
+        (this as any).$router.push({
+          name: path
+        })
+      } else {
+        (this as any).logout()
+      }
     }
   }
 }

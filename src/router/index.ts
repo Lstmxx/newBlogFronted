@@ -2,6 +2,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './import-router'
+import { getToken } from '@/libs/utility/token'
 
 Vue.use(Router)
 
@@ -12,9 +13,9 @@ let vueRouter : Router = new Router({
   routes
 })
 vueRouter.beforeEach((to, from, next) => {
-  if (to.name === 'addArticle') {
-    
-    next()
+  let token = getToken()
+  if (!token && (to.name === 'write-article')) {
+    next('/notice')
   } else {
     next()
   }

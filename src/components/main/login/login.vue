@@ -21,6 +21,7 @@
 </template>
 <script lang="ts">
 import { login } from '@/libs/request'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'Login',
   data () {
@@ -41,6 +42,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'handleLogin',
+      'loadUserInfo'
+    ]),
     close () : void {
       (this as any).$emit('input', false)
     },
@@ -52,14 +57,16 @@ export default {
             username: (this as any).username,
             password: (this as any).password
           }
-        }
-        login(config).then((responseData) => {
+        };
+        (this as any).handleLogin(config).then((responseData) => {
           if (type === 'register') {
             this.submit('login')
           } else if (type === 'login') {
-            localStorage.setItem('token', responseData.token)
-            sessionStorage.setItem('userName', responseData.userName);
-            (this as any).$emit('on-login-success')
+            (this as any).loadUserInfo().then((responseData) => {
+              (this as any).$emit('on-login-success')
+            }).catch((err) => {
+              console.log(err)
+            })
           }
         }).catch((err) => {
           console.log(err)

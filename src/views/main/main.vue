@@ -10,7 +10,7 @@
         :scroll="scroll">
         </Menu>
       </div>
-      <div class="login" v-if="!showUser">
+      <div class="login" v-if="!token">
         <span :class="{selected: loginShow, notSelected: !loginShow}" @click.stop="loginShow = true">Login</span>
       </div>
       <div class="login-success" v-else>
@@ -31,7 +31,8 @@ import Login from '@/components/main/login/index'
 import User from '@/components/main/user/index'
 import Menu from '@/components/main/menu/index'
 import Logo from '@/components/main/logo/index'
-import { getUserInfo } from '@/libs/request'
+import axios from 'axios'
+import { mapGetters, mapActions } from 'vuex'
 export default Vue.extend({
   name: 'Main',
   components: {
@@ -44,15 +45,39 @@ export default Vue.extend({
     return {
       scroll: 0,
       selectedPage: 'notice',
-      loginShow: false,
-      showUser: false
+      loginShow: false
     }
   },
+  computed: {
+    ...mapGetters({
+      token: 'getToken'
+    })
+  },
+  watch: {
+    token () {
+      console.log(this.token)
+    }
+    // token: {
+    //   immediate: true,
+    //   handler: () => {
+    //     console.log((this as any).token)
+    //     if (!(this as any).token) {
+    //       (this as any).loginShow = false;
+    //       (this as any).showUser = false
+    //     } else {
+    //       (this as any).loginShow = false;
+    //       (this as any).showUser = true
+    //     }
+    //   }
+    // }
+  },
   methods: {
+    ...mapActions([
+      'loadUserInfo'
+    ]),
     toOption () {},
     loginSuccess () {
-      (this as any).loginShow = false;
-      (this as any).showUser = true
+      (this as any).loginShow = false
       // (this as any).loginShow = false
     },
     menu () {
@@ -66,7 +91,7 @@ export default Vue.extend({
           name: name
         })
       }
-    },
+    }
     // test () {
     //   function arrayMap (callback, args) {
     //     let that = (this as any)
@@ -99,15 +124,6 @@ export default Vue.extend({
     //   }, 2)
     //   console.log(test1)
     // },
-    loadUserInfo () {
-      getUserInfo().then((responseData) => {
-        console.log(responseData)
-        sessionStorage.setItem('userName', responseData.userInfo.name);
-        (this as any).loginSuccess()
-      }).catch((err) => {
-        console.log(err)
-      })
-    }
   },
   mounted () {
     (this as any).loadUserInfo()

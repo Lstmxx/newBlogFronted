@@ -1,46 +1,16 @@
 import service from './axios/axios'
 import axios from 'axios'
 
-export function baseGetDetail (config : any, token : string) : Promise<any> {
-  let headers = {
-    common: {
-      token: localStorage.getItem('token') || ''
-    },
-    get: {
-      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-    },
-    post: {
-      'Content-Type': 'application/json;charset=utf-8'
-    }
-  }
-  if (token) {
-    headers.common.token = token
-  }
+export function baseGetDetail (config : any) : Promise<any> {
   const request = {
-    headers,
     url: config.url + '/' + config.data.id,
     method: 'GET'
   }
   return service.request(request)
 }
 
-export function baseGetList (config : any, token : string) : Promise<any> {
-  let headers = {
-    common: {
-      token: localStorage.getItem('token') || ''
-    },
-    get: {
-      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-    },
-    post: {
-      'Content-Type': 'application/json;charset=utf-8'
-    }
-  }
-  if (token) {
-    headers.common.token = token
-  }
+export function baseGetList (config : any) : Promise<any> {
   const request = {
-    headers,
     url: config.url,
     method: 'GET'
   }
@@ -74,19 +44,7 @@ export function upLoadFile (payload, progressCallback, type) : Promise<any> {
 }
 
 export function baseGetUserInfo () : Promise<any> {
-  let headers = {
-    common: {
-      token: localStorage.getItem('token') || ''
-    },
-    get: {
-      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-    },
-    post: {
-      'Content-Type': 'application/json;charset=utf-8'
-    }
-  }
   const config = {
-    headers,
     url: '/user-info',
     method: 'POST'
   }
@@ -94,22 +52,18 @@ export function baseGetUserInfo () : Promise<any> {
 }
 
 export function baseStore (config) : Promise<any> {
-  let headers = {
-    common: {
-      token: localStorage.getItem('token') || ''
-    },
-    get: {
-      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-    },
-    post: {
-      'Content-Type': 'application/json;charset=utf-8'
-    }
-  }
   const request = {
-    headers,
     url: config.url + '/store',
     method: 'POST',
     data: config.data
+  }
+  return service.request(request)
+}
+
+export function baseLogout () : Promise<any> {
+  const request = {
+    url: '/logout',
+    method: 'GET'
   }
   return service.request(request)
 }

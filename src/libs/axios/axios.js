@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { baseURL } from '../../config/config'
+import { getToken } from '../utility/token'
+
 const showStatus = (status) => {
   let message = ''
   // 这一坨代码可以使用策略模式进行优化
@@ -43,7 +45,7 @@ const showStatus = (status) => {
   return `${message}，请检查网络或联系管理员！`
 }
 
-const service = axios.create({
+let service = axios.create({
   baseURL: baseURL,
   timeout: 6000,
   responseType: 'application/json',
@@ -70,6 +72,7 @@ const service = axios.create({
 })
 
 service.interceptors.request.use((config) => {
+  config.headers.common['Lstmxx-Token'] = getToken()
   return config
 }, (error) => {
   error.data = {}
@@ -97,4 +100,5 @@ service.interceptors.response.use((response) => {
   return Promise.reject(error)
 })
 
+console.log(service)
 export default service
