@@ -11,6 +11,7 @@
       <textarea class="origin" v-model="article.content" @drop="getImage" v-if="showContent"></textarea>
       <div :class="{ 'marked': true, 'show-full-marked': !showContent }" v-highlight v-html="article.markedContent"></div>
     </div>
+    <Loading v-if="showLoding"></Loading>
     <!-- <mavon-editor v-model="content" @imgAdd="addImage" @imgDel="delImage"></mavon-editor> -->
   </div>
 </template>
@@ -37,7 +38,8 @@ export default {
         content: ''
       },
       tagList: [],
-      maxImageSize: 900
+      maxImageSize: 900,
+      showLoding: false
     }
   },
   watch: {
@@ -114,7 +116,7 @@ export default {
       console.log(file)
     },
     saveArticle () {
-      console.log(this.article)
+      this.showLoding = true
       const config = {
         url: 'article',
         data: {
@@ -122,7 +124,9 @@ export default {
         }
       }
       store(config).then((responseData) => {
+        this.showLoding = false
       }).catch((err) => {
+        this.showLoding = false
         console.log(err)
       })
     },

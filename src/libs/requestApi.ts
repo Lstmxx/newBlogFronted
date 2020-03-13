@@ -1,5 +1,6 @@
 import service from './axios/axios'
 import axios from 'axios'
+import { getToken } from './utility/token'
 
 export function baseGetDetail (config : any) : Promise<any> {
   const request = {
@@ -26,7 +27,7 @@ export function baseLogin (config : any) : Promise<any> {
   return service.request(request)
 }
 
-export function getToken () : Promise<any> {
+export function getServiceToken () : Promise<any> {
   const config = {
     url: '/get-token',
     method: 'POST'
@@ -36,7 +37,7 @@ export function getToken () : Promise<any> {
 
 export function upLoadFile (payload, progressCallback, type) : Promise<any> {
   let config = {
-    headers: { 'Content-Type': 'multipart/form-data' },
+    headers: { 'Content-Type': 'multipart/form-data', 'Lstmxx-Token': getToken() },
     onUploadProgress: progressCallback
   }
   const baseURL = process.env.NODE_ENV === 'development' ? 'http://www.myblog.com/api' : ''

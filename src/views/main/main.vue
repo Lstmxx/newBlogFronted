@@ -128,6 +128,13 @@ export default Vue.extend({
   mounted () {
     (this as any).loadUserInfo()
     window.addEventListener('scroll', (this as any).menu, true)
+    // let test = [1, 4, 3, 5]
+    // console.log(test.sort((a, b) => {
+    //   return a - b
+    // }))
+    let s = '()[]'
+    s = s.replace('[]', '')
+    console.log(s)
   }
 })
 </script>

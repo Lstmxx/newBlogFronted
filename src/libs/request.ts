@@ -2,7 +2,7 @@ import {
   baseGetDetail,
   baseGetList,
   baseLogin,
-  getToken,
+  getServiceToken,
   upLoadFile,
   baseGetUserInfo,
   baseStore,
