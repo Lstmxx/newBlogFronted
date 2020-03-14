@@ -48,6 +48,17 @@ export default {
     }
   },
   methods: {
+    clear () {
+      this.tagList = []
+      this.showContent = true
+      this.showLoding = false
+      this.article = {
+        name: '',
+        tagId: 1,
+        markedContent: '',
+        content: ''
+      }
+    },
     getImage (e) {
       e.preventDefault()
       e.stopPropagation()
@@ -125,6 +136,12 @@ export default {
       }
       store(config).then((responseData) => {
         this.showLoding = false
+        this.$router.push({
+          name: 'article',
+          query: {
+            reload: true
+          }
+        })
       }).catch((err) => {
         this.showLoding = false
         console.log(err)
@@ -160,8 +177,14 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     next((vm) => {
+      vm.clear()
       vm.loadTagList()
       vm.initMarkdownPlace()
+    })
+  },
+  beforeRouteLeave (to, from, next) {
+    next((vm) => {
+      vm.clear()
     })
   },
   mounted () {

@@ -1,7 +1,8 @@
 <template>
   <div class="article-digest" @click="selectArticle">
     <div class="title">
-      <span>hello</span>
+      <span class="tag">{{articleData.tag}}</span>
+      <span style="margin-left: 10px">{{articleData.name}}</span>
     </div>
     <div class="describe">
       <span>nothello</span>
@@ -12,11 +13,11 @@
     <div class="footer">
       <div class="statistics">
         <svg-icon iconClass="watch" style="color: #353535"></svg-icon>
-        <span>4000</span>
+        <span>{{articleData.watch}}</span>
         <svg-icon iconClass="thumb-up-line" style="color: #353535"></svg-icon>
-        <span>3000</span>
+        <span>{{articleData.like}}</span>
       </div>
-      <span>2019-04-03</span>
+      <span>{{articleData.createTime}}</span>
     </div>
   </div>
 </template>
@@ -40,9 +41,6 @@ export default {
   },
   methods: {
     selectArticle () {
-      let d = document.getElementsByClassName('articleDigest')
-      console.log(d[this['index']]['offsetHeight'])
-      this['$emit']('on-select', this['articleData'].id)
     }
   }
 }
