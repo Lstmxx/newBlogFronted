@@ -21,7 +21,7 @@
 <script lang="ts">
 import ArticleDigest from '@/components/article/article-digest/index'
 import HotArticle from '@/components/article/hot-article/index'
-import { getList } from '@/libs/request'
+import { getPage, getList } from '@/libs/request'
 import { normalizeTimeDetail } from '@/libs/utility/time'
 export default {
   name: 'Article',
@@ -54,7 +54,7 @@ export default {
   methods: {
     loadTagList () : void {
       let config = {
-        url: '/tag/list'
+        url: '/tag'
       }
       getList(config).then((responseData) => {
         console.log(responseData)
@@ -69,10 +69,10 @@ export default {
     },
     loadArticle () : void {
       let config = {
-        url: '/article/list',
+        url: '/article',
         data: (this as any).pageData
       }
-      getList(config).then((responseData) => {
+      getPage(config).then((responseData) => {
         responseData.articleList = responseData.articleList || []
         responseData.articleList.forEach((data: any) => {
           const article = {

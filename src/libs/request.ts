@@ -3,6 +3,7 @@ import {
   baseGetList,
   baseLogin,
   getServiceToken,
+  baseGetPage,
   upLoadFile,
   baseGetUserInfo,
   baseStore,
@@ -45,6 +46,13 @@ export function getDetail (config) : Promise<any> {
 export function getList (config) : Promise<any> {
   return new Promise((resolve, reject) => {
     const callBack = baseGetList
+    checkToken(callBack, config, resolve, reject)
+  })
+}
+
+export function getPage (config) : Promise<any> {
+  return new Promise((resolve, reject) => {
+    const callBack = baseGetPage
     checkToken(callBack, config, resolve, reject)
   })
 }

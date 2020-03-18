@@ -12,7 +12,16 @@ export function baseGetDetail (config : any) : Promise<any> {
 
 export function baseGetList (config : any) : Promise<any> {
   const request = {
-    url: config.url,
+    url: config.url + '/list',
+    data: config.data,
+    method: 'POST'
+  }
+  return service.request(request)
+}
+
+export function baseGetPage (config : any) : Promise<any> {
+  const request = {
+    url: config.url + '/page',
     data: config.data,
     method: 'POST'
   }
