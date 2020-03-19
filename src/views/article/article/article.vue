@@ -11,7 +11,7 @@
         <button @click="loadArticle">hello</button>
       </div>
     </div>
-    <div class="border" style="position: sticky;top: 103px;"></div>
+    <div class="border" style="position: sticky;"></div>
     <div class="hot-list">
       <span class="title">近期热门</span>
       <HotArticle />
@@ -59,7 +59,7 @@ export default {
       getList(config).then((responseData) => {
         console.log(responseData)
         responseData.tagList.forEach(data => {
-          (this as any).tagMap.set(data.id, data.tag_name)
+          (this as any).tagMap.set(data.id, data)
         });
         (this as any).loadArticle()
         // console.log(responseData)
@@ -80,8 +80,10 @@ export default {
             name: data.name,
             like: data.like_num || 0,
             watch: data.watch_num || 0,
-            tag: (this as any).tagMap.get(data.tag_id),
-            tagId: data.tag_id
+            tag: (this as any).tagMap.get(data.tag_id).tag_name,
+            tagId: data.tag_id,
+            tagColor: (this as any).tagMap.get(data.tag_id).tag_color,
+            description: data.description
           };
           (this as any).articleList.push(article)
         })

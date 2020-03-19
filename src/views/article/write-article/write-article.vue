@@ -9,7 +9,7 @@
     </div>
     <div class="markdown">
       <textarea class="origin" v-model="article.content" @drop="getImage" v-if="showContent"></textarea>
-      <div :class="{ 'marked': true, 'show-full-marked': !showContent }" v-highlight v-html="article.markedContent"></div>
+      <div :class="{ 'marked': true, 'show-full-marked': !showContent }" v-highlight v-html="markedContent"></div>
     </div>
     <Loading v-if="showLoding"></Loading>
     <!-- <mavon-editor v-model="content" @imgAdd="addImage" @imgDel="delImage"></mavon-editor> -->
@@ -31,11 +31,12 @@ export default {
   data () {
     return {
       showContent: true,
+      markedContent: '',
       article: {
         name: '',
         tagId: 1,
-        markedContent: '',
-        content: ''
+        content: '',
+        description: ''
       },
       tagList: [],
       maxImageSize: 900,
@@ -44,7 +45,7 @@ export default {
   },
   watch: {
     'article.content' () {
-      this.article.markedContent = marked(this.article.content)
+      this.markedContent = marked(this.article.content)
     }
   },
   methods: {
@@ -52,11 +53,12 @@ export default {
       this.tagList = []
       this.showContent = true
       this.showLoding = false
+      this.markedContent = ''
       this.article = {
         name: '',
         tagId: 1,
-        markedContent: '',
-        content: ''
+        content: '',
+        description: ''
       }
     },
     getImage (e) {
@@ -128,6 +130,7 @@ export default {
     },
     saveArticle () {
       this.showLoding = true
+      this.article.description = this.markedContent.replace(/<\/*[a-zA-Z]+.*?>/g, '')
       const config = {
         url: 'article',
         data: {
@@ -162,7 +165,7 @@ export default {
     },
     loadTagList () {
       let config = {
-        url: '/tag/list'
+        url: '/tag'
       }
       getList(config).then((responseData) => {
         console.log(responseData)

@@ -24,10 +24,4 @@ html, body{
   background-image: url(https://cn.bing.com/th?id=OHR.SeussianLandscape_ZH-CN0785428057_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp);
   overflow: hidden;
 }
-ul{
-  margin-block-start: 0!important;
-  margin-block-end: 0!important;
-  list-style: none;
-  padding: 0;
-}
 </style>
