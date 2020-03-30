@@ -58,7 +58,8 @@ export default {
         name: '',
         tagId: 1,
         content: '',
-        description: ''
+        description: '',
+        avatarImage: ''
       }
     },
     getImage (e) {
@@ -130,7 +131,10 @@ export default {
     },
     saveArticle () {
       this.showLoding = true
-      this.article.description = this.markedContent.replace(/<\/*[a-zA-Z]+.*?>/g, '')
+      const removeTagReg = /<\/*[a-zA-Z]+.*?>/g
+      this.article.description = this.markedContent.replace(removeTagReg, '')
+      const imageReg = /<img src="(.*)"\/>/g
+      this.article.avatarImage = this.article.content.match(imageReg)[0].replace(/img|<|\/>|src="|"/g, '')
       const config = {
         url: 'article',
         data: {

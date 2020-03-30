@@ -23,7 +23,7 @@
     </div>
   </div>
 </template>
-<script lang="ts">
+<script>
 export default {
   name: 'ArticleDigest',
   props: {
@@ -36,9 +36,14 @@ export default {
       type: Object
     }
   },
+  computed: {
+    imagePath () {
+      return this.articleData ? this.articleData['avatarImage'] : 'https://b-gold-cdn.xitu.io/v3/static/img/frontend.1dae74a.png'
+    }
+  },
   data () {
     return {
-      imagePath: 'https://b-gold-cdn.xitu.io/v3/static/img/frontend.1dae74a.png'
+      // imagePath: 'https://b-gold-cdn.xitu.io/v3/static/img/frontend.1dae74a.png'
     }
   },
   methods: {

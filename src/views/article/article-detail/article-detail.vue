@@ -8,7 +8,6 @@ export default {
   name: 'ArticleDetail',
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      console.log(vm['$route'])
       vm['loadArticleDetail'](vm['$route']['query']['id'])
     })
   },

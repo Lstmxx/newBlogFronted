@@ -11,7 +11,7 @@
         <button @click="loadArticle">hello</button>
       </div>
     </div>
-    <div class="border" style="position: sticky;"></div>
+    <div class="border" style="position: sticky;top: 200px"></div>
     <div class="hot-list">
       <span class="title">近期热门</span>
       <HotArticle />
@@ -32,6 +32,10 @@ export default {
   beforeRouteEnter (to, from, next) {
     next((vm) => {
       if (from.name === 'write-article' && to.query.reload) {
+        (vm as any).pageData = {
+          page: 1,
+          pageSize: 15
+        };
         (vm as any).articleList = [];
         (vm as any).loadTagList()
       }
@@ -82,6 +86,7 @@ export default {
             watch: data.watch_num || 0,
             tag: (this as any).tagMap.get(data.tag_id).tag_name,
             tagId: data.tag_id,
+            avatarImage: data.avatar_image,
             tagColor: (this as any).tagMap.get(data.tag_id).tag_color,
             description: data.description
           };

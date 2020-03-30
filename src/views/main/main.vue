@@ -132,9 +132,6 @@ export default Vue.extend({
     // console.log(test.sort((a, b) => {
     //   return a - b
     // }))
-    let s = '()[]'
-    s = s.replace('[]', '')
-    console.log(s)
   }
 })
 </script>

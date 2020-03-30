@@ -71,7 +71,16 @@ export default {
           name: path
         })
       } else {
-        (this as any).logout()
+        (this as any).logout().then((responseData) => {
+          (this as any).$router.push({
+            name: 'article',
+            query: {
+              reload: true
+            }
+          })
+        }).catch((err) => {
+          console.log(err)
+        })
       }
     }
   }

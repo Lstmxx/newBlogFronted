@@ -4,7 +4,8 @@ import { login, getUserInfo, logout } from '@/libs/request'
 export default {
   state: {
     token: getToken(),
-    userName: null
+    userName: null,
+    role: null
   },
   getters: {
     getToken (state) {
@@ -12,6 +13,9 @@ export default {
     },
     getUserName (state) {
       return state.userName
+    },
+    getRole (state) {
+      return state.role
     }
   },
   mutations: {
@@ -21,6 +25,9 @@ export default {
     },
     setUserName (state, name) {
       state.userName = name
+    },
+    setRole (state, role) {
+      state.role = role
     }
   },
   actions: {
@@ -29,6 +36,7 @@ export default {
         login(config).then((responseData) => {
           commit('setToken', responseData.token)
           commit('setUserName', responseData.userName)
+          commit('role', responseData.role)
           resolve(responseData)
         }).catch((err) => {
           reject(err)
@@ -41,6 +49,7 @@ export default {
         getUserInfo().then((responseData) => {
           commit('setToken', getToken())
           commit('setUserName', responseData.userInfo.name)
+          commit('role', responseData.userInfo.role)
           resolve(responseData)
         }).catch((err) => {
           commit('setToken', null)
@@ -54,7 +63,10 @@ export default {
         logout().then((responseData) => {
           commit('setUserName', null)
           commit('setToken', null)
+          commit('role', null)
+          resolve()
         }).catch((err) => {
+          reject(err)
           console.log(err)
         })
       })
