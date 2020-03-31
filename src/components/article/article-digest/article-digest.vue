@@ -1,5 +1,5 @@
 <template>
-  <div class="article-digest" @click="selectArticle">
+  <div class="article-digest" @click="selectArticle(articleData)">
     <div class="content">
       <div class="title">
         <span :class="`tag ${articleData.tagColor}`" >{{articleData.tag}}</span>
@@ -47,7 +47,8 @@ export default {
     }
   },
   methods: {
-    selectArticle () {
+    selectArticle (data) {
+      this.$emit('on-select', data.id)
     }
   }
 }

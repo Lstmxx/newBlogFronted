@@ -7,7 +7,7 @@ import store from '@/store'
 
 Vue.use(Router)
 
-console.log(routes)
+// console.log(routes)
 let vueRouter : Router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,

@@ -11,7 +11,7 @@
         <button @click="loadArticle">hello</button>
       </div>
     </div>
-    <div class="border" style="position: sticky;top: 200px"></div>
+    <div class="border" style="position: sticky;top: 112px"></div>
     <div class="hot-list">
       <span class="title">近期热门</span>
       <HotArticle />
@@ -80,6 +80,7 @@ export default {
         responseData.articleList = responseData.articleList || []
         responseData.articleList.forEach((data: any) => {
           const article = {
+            id: data.id,
             createTime: normalizeTimeDetail(data.create_time),
             name: data.name,
             like: data.like_num || 0,
