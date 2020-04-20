@@ -1,26 +1,12 @@
-.scroll-bar{
-  /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
-  &::-webkit-scrollbar{
-    width: 6px;
-    height: 6px;
-    background-color: white;
-  }
-  /*定义滚动条轨道 内阴影+圆角*/
-  &::-webkit-scrollbar-track{
-    border-radius: 10px;
-    background-color: white;
-  }
-  /*定义滑块 内阴影+圆角*/
-  &::-webkit-scrollbar-thumb{
-    border-radius: 10px;
-    background-color: #9E9E9E;
-  }
-}
+@import '~@less/base/clear-ul-style.less';
 .css-trick{
   .row;
   height: calc(100vh - 73px);
   width: 100%;
   .content{
     flex: 1;
+    background: white;
+    overflow: hidden;
+    margin: 20px;
   }
 }

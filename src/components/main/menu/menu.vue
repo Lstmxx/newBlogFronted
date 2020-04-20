@@ -24,7 +24,7 @@ export default {
       selectedIndex: 0,
       menuList: [
         {
-          name: '公告',
+          name: '书签',
           routeName: 'notice'
         },
         {

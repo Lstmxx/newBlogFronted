@@ -16,6 +16,7 @@
       <span class="title">近期热门</span>
       <HotArticle />
     </div>
+    <Loading v-if="showLoding"></Loading>
   </div>
 </template>
 <script lang="ts">
@@ -47,6 +48,7 @@ export default {
   },
   data () {
     return {
+      showLoding: false,
       articleList: [],
       pageData: {
         page: 1,
@@ -72,6 +74,7 @@ export default {
       })
     },
     loadArticle () : void {
+      (this as any).showLoding = true
       let config = {
         url: '/article',
         data: (this as any).pageData
@@ -96,7 +99,9 @@ export default {
         if (responseData.articleList.length > 0) {
           (this as any).pageData.page += 1
         }
+        (this as any).showLoding = false
       }).catch((err) => {
+        (this as any).showLoding = false
         console.log(err)
       })
     },

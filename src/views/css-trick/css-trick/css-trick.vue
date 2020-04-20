@@ -3,7 +3,6 @@
     <Menu
     :menuList="menuList"
     :selectIndex="selectIndex"
-    style="border-right: 1px solid #ecedf1"
     @on-select="selectRouteItem" />
     <div class="content">
       <keep-alive>

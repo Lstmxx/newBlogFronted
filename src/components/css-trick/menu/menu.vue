@@ -6,7 +6,7 @@
       v-for="(menuItem, index) in menuList"
       :key="index"
       @click="selectMenuItem(index, menuItem)">
-        <span>{{menuItem.name}}</span>
+        <span>{{menuMap[menuItem.name]}}</span>
       </li>
     </ul>
   </div>
@@ -26,6 +26,12 @@ export default {
   },
   data () {
     return {
+      menuMap: {
+        charge: '电池',
+        menu: '菜单',
+        index: '首页',
+        selector: '选择器'
+      }
     }
   },
   methods: {
