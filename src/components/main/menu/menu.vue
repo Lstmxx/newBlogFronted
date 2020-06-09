@@ -24,8 +24,8 @@ export default {
       selectedIndex: 0,
       menuList: [
         {
-          name: '书签',
-          routeName: 'notice'
+          name: '首页',
+          routeName: 'index'
         },
         {
           name: '文章',
@@ -44,15 +44,14 @@ export default {
   },
   methods: {
     selectPage (routeName: string, index: number) : void {
-      console.log(routeName);
       (this as any).selectedIndex = index
       this['$emit']('turn-to-page', routeName)
     }
   },
   mounted () {
-    const routePath = this['$route'].path;
+    const routePath = this['$route'].path.split('/')[1];
     (this as any).menuList.every((data, index) => {
-      if (routePath.includes(data.routeName)) {
+      if (routePath === data.routeName) {
         (this as any).selectedIndex = index
         return false
       }

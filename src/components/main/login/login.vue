@@ -51,6 +51,7 @@ export default {
     },
     submit (type : String) :void {
       if ((this as any).usernameValid && (this as any).passwordValid) {
+        // (this as any).$Loading.show()
         let config = {
           url: type === 'login' ? '/login' : '/register',
           data: {
@@ -69,6 +70,7 @@ export default {
             })
           }
         }).catch((err) => {
+          (this as any).$Loading.hide()
           console.log(err)
         })
       }

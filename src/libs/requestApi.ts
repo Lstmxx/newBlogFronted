@@ -14,7 +14,7 @@ export function baseGetList (config : any) : Promise<any> {
   const request = {
     url: config.url + '/list',
     data: config.data,
-    method: 'POST'
+    method: 'GET'
   }
   return service.request(request)
 }
@@ -75,6 +75,24 @@ export function baseLogout () : Promise<any> {
   const request = {
     url: '/logout',
     method: 'GET'
+  }
+  return service.request(request)
+}
+
+export function baseGet (config) : Promise<any> {
+  const request = {
+    url: config.url,
+    data: config.data,
+    method: 'GET'
+  }
+  return service.request(request)
+}
+
+export function basePost (config) : Promise<any> {
+  const request = {
+    url: config.url,
+    data: config.data,
+    method: 'POST'
   }
   return service.request(request)
 }

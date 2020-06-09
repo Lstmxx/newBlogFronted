@@ -29,17 +29,19 @@ export default {
   name: 'User',
   computed: {
     ...mapGetters({
-      userName: 'getUserName'
-    })
-  },
-  data () {
-    return {
-      selectOption: false,
-      imagePath: 'https://b-gold-cdn.xitu.io/v3/static/img/frontend.1dae74a.png',
-      optionList: [
+      userName: 'getUserName',
+      role: 'getRole'
+    }),
+    optionList () {
+      const optionList = [
         {
           name: '写文章',
           path: 'write-article',
+          icon: 'write'
+        },
+        {
+          name: '写css',
+          path: 'css-trick-write',
           icon: 'write'
         },
         {
@@ -50,7 +52,7 @@ export default {
         {
           name: '提醒',
           path: '',
-          icon: 'notice'
+          icon: 'index'
         },
         {
           name: '登出',
@@ -58,6 +60,13 @@ export default {
           icon: 'logout'
         }
       ]
+      return (this as any).role === 'superAdmin' ? optionList : optionList.slice(2)
+    }
+  },
+  data () {
+    return {
+      selectOption: false,
+      imagePath: 'https://b-gold-cdn.xitu.io/v3/static/img/frontend.1dae74a.png'
     }
   },
   methods: {

@@ -1,0 +1,49 @@
+.index{
+  .col;
+  background-color: #fffffc;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  width: 100vw;
+  &::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+  }
+  .image-warp{
+    width: 100%;
+    overflow: hidden;
+    .image{
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 100% auto;
+      padding-bottom: 30%;
+      width: 100%;
+    }
+  }
+  .what-can-you-learn{
+    .col;
+    // padding: 40px;
+    div{
+      flex: 1;
+    }
+  }
+  .description{
+    .row;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 20px auto;
+    div{
+      width: 300px;
+    }
+    span{
+      color: #4e6e8e
+    }
+  }
+  .footer{
+    margin-top: 40px;
+    span{
+      border-top: 1px solid #888888;
+      padding: 20px;
+      color: #878787;
+    }
+  }
+}

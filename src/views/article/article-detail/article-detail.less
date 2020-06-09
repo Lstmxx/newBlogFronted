@@ -1,12 +1,64 @@
-.article-detail{
-  .col;
-  text-align: left;
+@import '~@/less/base/clear-ul-style.less';
+.container{
   width: 100%;
+  height: calc(100vh - 72px);
+  overflow-y: scroll;
+}
+.selected{
+  color: white!important;
+  background-color: #363636;
+}
+.article-detail{
+  .row;
+  text-align: left;
+  justify-content: center;
+  .article-menu{
+    ul{
+      .col;
+      position: fixed;
+      top: 200px;
+      width: 300px;
+      li{
+        padding: 10px;
+      }
+      a{
+        font-size: 14px;
+        text-decoration: none;
+        color: #363636;
+        padding: 6px;
+      }
+      a:hover{
+        color: white;
+        background-color: #363636;
+      }
+    }
+    .h2{
+      margin-left: 1rem;
+    }
+    .h3{
+      margin-left: 2rem;
+    }
+    width: 300px;
+  }
   .article-content{
     // box-sizing: border-box;
+    .col;
     background-color: white;
-    max-width: 1000px;
-    margin: 40px 0px;
-    padding: 0px 42px;
+    padding: 40px 42px;
+    .content{
+      margin-bottom: 10px;
+      min-width: 1000px;
+      max-width: 1000px;
+    }
+    .footer{
+      .row;
+      height: 100px;
+      justify-content: space-between;
+      .time-author{
+        text-align: right;
+        color: #878787;
+        letter-spacing: 1px;
+      }
+    }
   }
 }

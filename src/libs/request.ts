@@ -13,24 +13,7 @@ import { setToken } from './utility/token'
 
 function checkToken (promiseCallBack : Function, config : Object, resolve, reject) {
   promiseCallBack(config).then((response) => {
-    if (!response.msg) {
-      resolve(response.data.data)
-    }
-    if (response.status === 401) {
-      // getToken().then((responseData) => {
-      //   // localStorage.setItem('token', responseData.data.data.token)
-      //   setToken(responseData.data.data.token)
-      //   promiseCallBack(config, responseData.data.data.token).then((response) => {
-      //     if (!response.msg) {
-      //       resolve(response.data.data)
-      //     }
-      //   }).catch((err) => {
-      //     reject(err)
-      //   })
-      // }).catch((err) => {
-      //   reject(err)
-      // })
-    }
+    resolve(response.data.data)
   }).catch((err) => {
     reject(err)
   })
@@ -60,11 +43,7 @@ export function getPage (config) : Promise<any> {
 export function login (config) : Promise<any> {
   return new Promise((resolve, reject) => {
     baseLogin(config).then((response) => {
-      if (!response.msg) {
-        resolve(response.data.data)
-      } else {
-        reject(response.msg)
-      }
+      resolve(response.data.data)
     }).catch((err) => {
       reject(err)
     })
@@ -74,11 +53,7 @@ export function login (config) : Promise<any> {
 export function upLoad (config, callBack, type) : Promise<any> {
   return new Promise((resolve, reject) => {
     upLoadFile(config, callBack, type).then((response) => {
-      if (!response.msg) {
-        resolve(response.data.data)
-      } else {
-        reject(response.msg)
-      }
+      resolve(response.data.data)
     }).catch((err) => {
       reject(err)
     })
@@ -88,12 +63,7 @@ export function upLoad (config, callBack, type) : Promise<any> {
 export function getUserInfo () : Promise<any> {
   return new Promise((resolve, reject) => {
     baseGetUserInfo().then((response) => {
-      console.log(response)
-      if (!response.msg) {
-        resolve(response.data.data)
-      } else {
-        reject(response.msg)
-      }
+      resolve(response.data.data)
     }).catch((err) => {
       reject(err)
     })
@@ -103,11 +73,7 @@ export function getUserInfo () : Promise<any> {
 export function store (config) : Promise<any> {
   return new Promise((resolve, reject) => {
     baseStore(config).then((response) => {
-      if (!response.msg) {
-        resolve(response.data.data)
-      } else {
-        reject(response.msg)
-      }
+      resolve(response.data.data)
     }).catch((err) => {
       reject(err)
     })
@@ -117,11 +83,7 @@ export function store (config) : Promise<any> {
 export function logout () : Promise<any> {
   return new Promise((resolve, reject) => {
     baseLogout().then((response) => {
-      if (!response.msg) {
-        resolve(response.data.data)
-      } else {
-        reject(response.msg)
-      }
+      resolve(response.data.data)
     }).catch((err) => {
       reject(err)
     })

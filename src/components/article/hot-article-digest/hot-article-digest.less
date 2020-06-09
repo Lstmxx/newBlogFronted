@@ -1,0 +1,40 @@
+@import '~@less/base/article-tag.less';
+.hot-article-digest{
+  .col;
+  margin-top: 20px;
+  text-align: left;
+  .image-warp{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    .image{
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      padding-bottom: 80%;
+      width: 100%;
+      border-radius: 10px;
+    }
+    .tag-content{
+      .row;
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      justify-content: flex-end;
+      .tag{
+        margin-left: 6px;
+        white-space: nowrap;
+      }
+    }
+  }
+  .title{
+    .col;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: left;
+    letter-spacing: 4px;
+    justify-content: space-between;
+  }
+}

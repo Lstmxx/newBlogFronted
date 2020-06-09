@@ -57,3 +57,18 @@
     background-color: #9E9E9E;
   }
 }
+
+.lang{
+  position: relative;
+  background: #282c34;
+  padding: 30px!important;
+  border-radius: 8px;
+  &::after{
+    font-size: 16px;
+    content: attr(data-content);
+    position: absolute;
+    color: #888888;
+    top: 8px;
+    right: 10px;
+  }
+}

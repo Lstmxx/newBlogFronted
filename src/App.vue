@@ -13,15 +13,14 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #363636;
-  width: 100%;
-  height: 100%;
-  overflow-y: scroll;
+  width: 100vw;
+  height: 100vh;
 }
 html, body{
   margin: 0px;
   width: 100%;
   height: 100%;
-  background-image: url(https://cn.bing.com/th?id=OHR.SeussianLandscape_ZH-CN0785428057_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp);
+  background-color: #ffffff;
   overflow: hidden;
 }
 </style>

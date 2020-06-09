@@ -1,29 +1,64 @@
 @import '~@less/base/border.less';
+.container{
+  width: 100%;
+  height: calc(100vh - 72px);
+  overflow-y: scroll;
+}
 .article{
   .row;
-  position: relative;
-  justify-content: space-between;
-  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin: 0px auto;
   .articleList{
-    flex: 2;
-    overflow: hidden;
-    padding: 40px 0px;
-    // transition: height 0.3s;
+    .col;
+    flex: 3;
+    padding: 40px 0px 0px;
     .footer{
       .col;
       height: 100px;
-      button {
+      p{
         margin: auto;
+        letter-spacing: 4px;
+        color: #878787
       }
     }
   }
   .hot-list{
     .col;
     flex: 1;
+    margin-left: 60px;
     .title{
-      font-size: 20px;
+      letter-spacing: 4px;
+      font-size: 26px;
       text-align: right;
       margin-top: 20px;
     }
   }
 }
+
+@media screen and (min-width: 576px) {
+  .article {
+    width: 540px;
+    max-width: 540px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .article {
+    width: 960px;
+    max-width: 960px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .article {
+    width: 720px;
+    max-width: 720px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .article {
+    width: 1140px;
+    max-width: 1140px;
+  }
+}
+
+

@@ -4,23 +4,21 @@
     <div class="title">
       <div class="logo-menu">
         <Logo></Logo>
-        <Menu
-        @turn-to-page="handleTurnToPage"
-        :selectedPage="selectedPage"
-        :scroll="scroll">
-        </Menu>
+        <Menu @turn-to-page="handleTurnToPage"></Menu>
       </div>
       <div class="login" v-if="!token">
         <span :class="{selected: loginShow, notSelected: !loginShow}" @click.stop="loginShow = true">Login</span>
       </div>
       <div class="login-success" v-else>
-        <User @to-option="toOption" style="z-index: 3"></User>
+        <User style="z-index: 3"></User>
       </div>
     </div>
     <div class="content">
       <keep-alive>
-        <router-view/>
+        <router-view v-if="$route.meta.keepAlive"/>
       </keep-alive>
+      <router-view v-if="!$route.meta.keepAlive">
+      </router-view>
     </div>
     <Login v-if="loginShow" v-model="loginShow" @on-login-success="loginSuccess"></Login>
   </div>
@@ -43,9 +41,9 @@ export default Vue.extend({
   },
   data () {
     return {
-      scroll: 0,
-      selectedPage: 'notice',
-      loginShow: false
+      selectedPage: 'index',
+      loginShow: false,
+      timer: null
     }
   },
   computed: {
@@ -53,36 +51,13 @@ export default Vue.extend({
       token: 'getToken'
     })
   },
-  watch: {
-    token () {
-      console.log(this.token)
-    }
-    // token: {
-    //   immediate: true,
-    //   handler: () => {
-    //     console.log((this as any).token)
-    //     if (!(this as any).token) {
-    //       (this as any).loginShow = false;
-    //       (this as any).showUser = false
-    //     } else {
-    //       (this as any).loginShow = false;
-    //       (this as any).showUser = true
-    //     }
-    //   }
-    // }
+  updated () {
+    console.log((this as any).$route)
   },
   methods: {
-    ...mapActions([
-      'loadUserInfo'
-    ]),
-    toOption () {},
     loginSuccess () {
       (this as any).loginShow = false
       // (this as any).loginShow = false
-    },
-    menu () {
-      (this as any).scroll = document.getElementsByClassName('content')[0].scrollTop
-      console.log(document.getElementsByClassName('content')[0].scrollTop)
     },
     handleTurnToPage (name: string) : void {
       if (this['$route'].path !== `/${name}`) {
@@ -92,46 +67,6 @@ export default Vue.extend({
         })
       }
     }
-    // test () {
-    //   function arrayMap (callback, args) {
-    //     let that = (this as any)
-    //     if (this === null || this === undefined) {
-    //       throw new TypeError("Cannot read property 'map' of null or undefined")
-    //     }
-    //     if (Object.prototype.toString.call(callback) !== '[object Function]') {
-    //       throw new TypeError(callback + 'is not a function')
-    //     }
-    //     let O = Object(this)
-    //     let a = args
-    //     let len = O.length >>> 0
-    //     let result = new Array(len)
-    //     for (let index = 0; index < len; index++) {
-    //       if (index in O) {
-    //         let value = O[index]
-    //         let mappedValue = callback.call(this, a, value, index, O)
-    //         result[index] = mappedValue
-    //       }
-    //     }
-    //     return result
-    //   }
-    //   Array.prototype.map = arrayMap
-    //   let test = [{ a: 1, b: 2 }, { a: 1, b: 2 }, { a: 1, b: 2 }]
-    //   let test1 = test.map((arg, data, index, array) => {
-    //     console.log(arg)
-    //     console.log(data)
-    //     console.log(index)
-    //     return (data as any).a
-    //   }, 2)
-    //   console.log(test1)
-    // },
-  },
-  mounted () {
-    (this as any).loadUserInfo()
-    window.addEventListener('scroll', (this as any).menu, true)
-    // let test = [1, 4, 3, 5]
-    // console.log(test.sort((a, b) => {
-    //   return a - b
-    // }))
   }
 })
 </script>

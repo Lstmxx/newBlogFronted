@@ -1,5 +1,6 @@
 <template>
   <div class="add-article">
+    <UpLoadFile @on-change="handleGetAvatarImage"></UpLoadFile>
     <div class="bar">
       <div class="tag-and-title">
         <MySelect :optionList="tagList" v-model="article.tagId" targetKey="value"/>
@@ -11,8 +12,6 @@
       <textarea class="origin" v-model="article.content" @drop="getImage" v-if="showContent"></textarea>
       <div :class="{ 'marked': true, 'show-full-marked': !showContent }" v-highlight v-html="markedContent"></div>
     </div>
-    <Loading v-if="showLoding"></Loading>
-    <!-- <mavon-editor v-model="content" @imgAdd="addImage" @imgDel="delImage"></mavon-editor> -->
   </div>
 </template>
 
@@ -22,11 +21,13 @@ import { upLoad, getList, store } from '_l/request'
 import { baseImageUrl } from '@/config/config'
 import MyButton from '@/components/base/button/index'
 import MySelect from '@/components/base/select/index'
+import UpLoadFile from '@/components/base/up-load-file/up-load-file'
 export default {
   name: 'WrtieArticle',
   components: {
     MyButton,
-    MySelect
+    MySelect,
+    UpLoadFile
   },
   data () {
     return {
@@ -39,8 +40,7 @@ export default {
         description: ''
       },
       tagList: [],
-      maxImageSize: 900,
-      showLoding: false
+      maxImageSize: 900
     }
   },
   watch: {
@@ -61,6 +61,9 @@ export default {
         description: '',
         avatarImage: ''
       }
+    },
+    handleGetAvatarImage (imageList) {
+      this.article.avatarImage = imageList[0].base64Path
     },
     getImage (e) {
       e.preventDefault()
@@ -130,11 +133,9 @@ export default {
       console.log(file)
     },
     saveArticle () {
-      this.showLoding = true
+      this.$Loading.show()
       const removeTagReg = /<\/*[a-zA-Z]+.*?>/g
-      this.article.description = this.markedContent.replace(removeTagReg, '')
-      const imageReg = /<img src="(.*)"\/>/g
-      this.article.avatarImage = this.article.content.match(imageReg)[0].replace(/img|<|\/>|src="|"/g, '')
+      this.article.description = this.markedContent.replace(removeTagReg, '').slice(0, 100) + '...'
       const config = {
         url: 'article',
         data: {
@@ -142,7 +143,7 @@ export default {
         }
       }
       store(config).then((responseData) => {
-        this.showLoding = false
+        this.$Loading.hide()
         this.$router.push({
           name: 'article',
           query: {
@@ -150,7 +151,7 @@ export default {
           }
         })
       }).catch((err) => {
-        this.showLoding = false
+        this.$Loading.hide()
         console.log(err)
       })
     },

@@ -3,22 +3,22 @@ import App from './App.vue'
 import router from './router'
 import store from './store/index.js'
 import './registerServiceWorker'
-import mavonEditor from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
 import './assets/icon/index'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/atom-one-dark.css'
-import Loading from './components/base/loading'
 
-Vue.component('Loading', Loading)
+import Loading from '@/components/base/loading/index'
+import PreviewImage from '@/components/base/preview-image/index'
+
+Vue.prototype.$Loading = Loading
+Vue.prototype.$PreviewImage = PreviewImage
 Vue.directive('highlight', (el) => {
-  let blocks = el.querySelectorAll('pre code')
+  const blocks = el.querySelectorAll('pre code')
   blocks.forEach((block) => {
     hljs.highlightBlock(block)
   })
 })
 
-Vue.use(mavonEditor)
 Vue.config.productionTip = false
 
 new Vue({

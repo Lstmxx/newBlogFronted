@@ -1,74 +1,45 @@
+/* eslint-disable */
 import Main from '../views/main/index'
-let viewsRouterContext = require.context('../views', true, /routes\/index.js$/)
-let routes = [
+const mode = ''
+const viewsRouterContext = require.context('../views', true, /routes\/index.js$/)
+const routes = [
   {
     path: '/',
     name: 'Main',
-    redirect: '/notice',
-    component: Main
+    redirect: '/index'
   }
 ]
-console.log(viewsRouterContext.keys())
-viewsRouterContext.keys().forEach(data => {
-  let fatherDirNameDown = data.split('/')[1]
-  let fatherDirNameUp = fatherDirNameDown.toUpperCase()
-  let route = {
-    path: '',
-    name: fatherDirNameUp,
-    component: Main,
-    children: []
-  }
-  let context = viewsRouterContext(data)
-  console.log(context)
-  context = context.default || context
-  let children = []
-  context.forEach(childrenData => {
-    childrenData = childrenData.slice(1, childrenData.length)
-    const name = childrenData.split('/')[1]
-    if (fatherDirNameDown !== 'css-trick') {
-      children.push({
-        path: `/${name}`,
-        name: name,
-        component: () => import(/* webpackChunkName: "[request]" */ `../views/${fatherDirNameDown}${childrenData}`)
+if (mode === 'lazy') {
+  (
+  async function () {
+    const contextList = []
+      viewsRouterContext.keys().forEach(data => {
+        const context = viewsRouterContext(data)
+        contextList.push(context)
       })
-    } else {
-      if (name !== 'css-trick' && name !== 'index') {
-        children.push({
-          path: `/css-trick/${name}`,
-          name: name,
-          component: () => import(/* webpackChunkName: "[request]" */ `../views/${fatherDirNameDown}${childrenData}`)
+      await new Promise((resolve, reject) => {
+        Promise.all(contextList).then((result) => {
+          routes.push(...result.map(item => {
+            item = item.default || item
+            item.component = Main
+            return item
+          }))
+          resolve()
+        }).catch((err) => {
+          reject(err)
         })
-      } else if (name === 'index') {
-        children.unshift({
-          path: `/css-trick/${name}`,
-          name: name,
-          component: () => import(/* webpackChunkName: "[request]" */ `../views/${fatherDirNameDown}${childrenData}`)
-        })
-      }
+      })
     }
+  )()
+} else {
+  viewsRouterContext.keys().forEach(data => {
+    let context = viewsRouterContext(data)
+    context = context.default || context
+    context.component = Main
+    routes.push(context)
   })
-  if (fatherDirNameDown === 'css-trick') {
-    const component = import(/* webpackChunkName: "[request]" */ `../views/${fatherDirNameDown}/${fatherDirNameDown}/index.ts`).then(data => {
-      console.log(data)
-    }).catch(err => {
-      console.log(err)
-    })
-    console.log(component)
-    route.children = [{
-      path: '/css-trick',
-      name: 'css-trick',
-      redirect: children[0].path,
-      meta: {
-        name: ''
-      },
-      component: () => import(/* webpackChunkName: "[request]" */ `../views/${fatherDirNameDown}/${fatherDirNameDown}/index.ts`),
-      children: children
-    }]
-  } else {
-    route.children = children
-  }
-  routes.push(route)
-})
-console.log(routes)
+}
 
+console.log('helo')
+console.log(routes)
 export default routes

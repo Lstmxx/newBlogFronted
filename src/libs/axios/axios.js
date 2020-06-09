@@ -45,9 +45,9 @@ const showStatus = (status) => {
   return `${message}，请检查网络或联系管理员！`
 }
 
-let service = axios.create({
+const service = axios.create({
   baseURL: baseURL,
-  timeout: 6000,
+  timeout: 3000,
   responseType: 'application/json',
   headers: {
     get: {
@@ -83,22 +83,28 @@ service.interceptors.request.use((config) => {
 service.interceptors.response.use((response) => {
   console.log(response)
   let status = response.status
-  let msg = ''
-  let data = response.data
+  const data = response.data
   if (status < 200 || status >= 300) {
-    msg = showStatus(status)
-  }
-  if (data.status < 200 || data.status >= 300) {
+    response.message = showStatus(status)
+    // Message.error(response.message)
+    return Promise.reject(new Error(response.message || 'Error'))
+  } else if (data.status < 200 || data.status >= 300) {
     status = data.status
-    msg = showStatus(data.status)
+    response.message = data.message
+    // Message.error(data.message)
+    return Promise.reject(new Error({
+      status,
+      message: response.message || ''
+    }))
+  } else {
+    return { status, data, msg: '成功' }
   }
-  return { status, data, msg }
 }, (error) => {
-  console.log(error)
-  error.data = {}
-  error.data.msg = '有毛病'
+  if (error.message.includes('timeout') || error.response.status.toString()[0] === '5') {
+    // Message.error('请检查网络')
+    error.timeout = true
+  }
   return Promise.reject(error)
 })
 
-console.log(service)
 export default service

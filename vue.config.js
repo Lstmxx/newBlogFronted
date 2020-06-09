@@ -1,9 +1,16 @@
 const path = require('path')
 
-/* eslint-disable */
-const resolve = dir => {
+const assetsDir = ''
+function resolve (dir) {
   return path.join(__dirname, dir)
 }
+function getAssetPath (assetsDir, filePath) {
+  return assetsDir
+    ? path.posix.join(assetsDir, filePath)
+    : filePath
+}
+const bundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+/* eslint-disable */
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
   lintOnSave: true,
@@ -14,7 +21,29 @@ module.exports = {
     extract: process.env.NODE_ENV === 'production',
     sourceMap: false
   },
+  configureWebpack: {
+    externals: {
+    },
+    plugins: [
+      new bundleAnalyzerPlugin({
+        analyzerMode: 'server',
+        analyzerHost: '127.0.0.1',
+        analyzerPort: 8888,
+        reportFilename: 'report.html',
+        defaultSizes: 'parsed'
+      })
+    ],
+  },
   chainWebpack: config => {
+    config.plugins.delete('prefetch')
+    // 移除 preload 插件
+    config.plugins.delete('preload')
+    config.module
+    .rule('node')
+    .test(/\.node$/)
+      .use('node-loader')
+        .loader('node-loader')
+        .end()
     config.resolve.alias
       .set('@', resolve('src'))
       .set('_l', resolve('src/libs'))
@@ -42,8 +71,14 @@ module.exports = {
       .end()
       .use('file-loader')
       .loader('file-loader')
+      if (process.env.NODE_ENV === 'production') {
+        const filename = getAssetPath(
+          assetsDir,
+          `js/[name].[contenthash:8].js`
+        )
+        config.mode('production').devtool(false).output.filename(filename).chunkFilename(filename)
+      }
   },
-
   productionSourceMap: false,
 
   pluginOptions: {

@@ -36,7 +36,7 @@ export default {
         login(config).then((responseData) => {
           commit('setToken', responseData.token)
           commit('setUserName', responseData.userName)
-          commit('role', responseData.role)
+          commit('setRole', responseData.role)
           resolve(responseData)
         }).catch((err) => {
           reject(err)
@@ -49,12 +49,12 @@ export default {
         getUserInfo().then((responseData) => {
           commit('setToken', getToken())
           commit('setUserName', responseData.userInfo.name)
-          commit('role', responseData.userInfo.role)
+          commit('setRole', responseData.userInfo.role)
           resolve(responseData)
         }).catch((err) => {
           commit('setToken', null)
-          reject(err)
-          console.log(err)
+          reject(err.msg)
+          console.log(err.msg)
         })
       })
     },
@@ -63,7 +63,7 @@ export default {
         logout().then((responseData) => {
           commit('setUserName', null)
           commit('setToken', null)
-          commit('role', null)
+          commit('setRole', null)
           resolve()
         }).catch((err) => {
           reject(err)

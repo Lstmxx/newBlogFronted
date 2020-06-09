@@ -1,34 +1,40 @@
 <template>
-  <div class="article">
-    <div class="articleList">
-      <ArticleDigest
-      v-for="(articleData, index) in articleList"
-      :key="index"
-      :index="index"
-      :articleData="articleData"
-      @on-select="selectArticle"/>
-      <div class="footer">
-        <button @click="loadArticle">hello</button>
+  <div id="article-container" class="container">
+    <div class="article">
+      <div class="articleList">
+        <ArticleDigest
+        v-for="(articleData, index) in articleList"
+        :key="index"
+        :index="index"
+        :articleData="articleData"
+        @on-select="selectArticle"/>
+        <div class="footer">
+          <p v-if="nothing">已经没有更多啦~</p>
+        </div>
+      </div>
+      <div class="hot-list">
+        <span class="title">推荐文章</span>
+        <HotArticleDigest
+        v-for="(hotArticleData, index) in hotArticleList"
+        :key="index"
+        :hotArticleData="hotArticleData"
+        @on-select="selectArticle"
+        />
       </div>
     </div>
-    <div class="border" style="position: sticky;top: 112px"></div>
-    <div class="hot-list">
-      <span class="title">近期热门</span>
-      <HotArticle />
-    </div>
-    <Loading v-if="showLoding"></Loading>
   </div>
 </template>
 <script lang="ts">
 import ArticleDigest from '@/components/article/article-digest/index'
-import HotArticle from '@/components/article/hot-article/index'
+import HotArticleDigest from '@/components/article/hot-article-digest/index'
 import { getPage, getList } from '@/libs/request'
 import { normalizeTimeDetail } from '@/libs/utility/time'
+import { handleScroll } from '@/libs/utility/scroll'
 export default {
   name: 'Article',
   components: {
     ArticleDigest,
-    HotArticle
+    HotArticleDigest
   },
   beforeRouteEnter (to, from, next) {
     next((vm) => {
@@ -43,43 +49,76 @@ export default {
     })
   },
   mounted () {
+    handleScroll('article-container', (this as any).handleScroll);
     (this as any).articleList = [];
     (this as any).loadTagList()
   },
   data () {
     return {
-      showLoding: false,
       articleList: [],
+      hotArticleList: [],
       pageData: {
         page: 1,
         pageSize: 15
       },
-      tagMap: new Map()
+      tagMap: new Map(),
+      nothing: false
     }
   },
   methods: {
+    handleScroll (event) : void {
+      const scrollTop = event.target.scrollTop
+      const clientHeight = event.target.clientHeight
+      const scrollHeight = event.target.scrollHeight
+      if (!(this as any).nothing && (scrollTop + clientHeight === scrollHeight)) {
+        (this as any).loadArticle()
+      }
+    },
     loadTagList () : void {
-      let config = {
+      (this as any).$Loading.show()
+      const config = {
         url: '/tag'
       }
       getList(config).then((responseData) => {
-        console.log(responseData)
         responseData.tagList.forEach(data => {
           (this as any).tagMap.set(data.id, data)
         });
+        (this as any).loadHotArticle();
         (this as any).loadArticle()
-        // console.log(responseData)
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+    loadHotArticle () : void {
+      const config = {
+        url: '/article/hot'
+      }
+      getList(config).then((responseData) => {
+        (this as any).hotArticleList = []
+        responseData.articleList = responseData.articleList || []
+        responseData.articleList.forEach(data => {
+          const article = {
+            id: data.id,
+            createTime: normalizeTimeDetail(data.create_time),
+            name: data.name,
+            tag: (this as any).tagMap.get(data.tag_id).tag_name,
+            tagId: data.tag_id,
+            avatarImage: data.avatar_image,
+            tagColor: (this as any).tagMap.get(data.tag_id).tag_color
+          };
+          (this as any).hotArticleList.push(article)
+        })
       }).catch((err) => {
         console.log(err)
       })
     },
     loadArticle () : void {
-      (this as any).showLoding = true
-      let config = {
+      const config = {
         url: '/article',
         data: (this as any).pageData
       }
       getPage(config).then((responseData) => {
+        (this as any).$Loading.hide()
         responseData.articleList = responseData.articleList || []
         responseData.articleList.forEach((data: any) => {
           const article = {
@@ -98,10 +137,11 @@ export default {
         })
         if (responseData.articleList.length > 0) {
           (this as any).pageData.page += 1
+        } else {
+          (this as any).nothing = true
         }
-        (this as any).showLoding = false
       }).catch((err) => {
-        (this as any).showLoding = false
+        (this as any).$Loading.hide()
         console.log(err)
       })
     },

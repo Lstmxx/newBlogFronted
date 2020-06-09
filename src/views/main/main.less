@@ -2,12 +2,16 @@
 @import '~@less/base/border.less';
 .main{
   .col;
+  overflow: hidden;
   .title{
     .row;
     padding: 10px 40px;
     background: #24292e;
-    position: sticky;
+    position: fixed;
+    // position: sticky;
     top: 0px;
+    width: 100%;
+    box-sizing: border-box;
     align-items: center;
     justify-content: space-between;
     z-index: 3;
@@ -25,7 +29,9 @@
   }
   .content{
     .row;
-    margin: 0px 40px;
+    margin: 72px 0px 0px;
+    height: calc(100vh - 72px);
+    overflow: hidden;
     justify-content: space-between;
   }
 }
