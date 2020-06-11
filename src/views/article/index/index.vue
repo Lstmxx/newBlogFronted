@@ -31,7 +31,7 @@ import { getPage, getList } from '@/libs/request'
 import { normalizeTimeDetail } from '@/libs/utility/time'
 import { handleScroll } from '@/libs/utility/scroll'
 export default {
-  name: 'Article',
+  name: 'ArticleIndex',
   components: {
     ArticleDigest,
     HotArticleDigest
@@ -158,5 +158,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import './article.less';
+@import './index.less';
 </style>

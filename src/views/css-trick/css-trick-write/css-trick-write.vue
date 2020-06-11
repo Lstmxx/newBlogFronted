@@ -4,22 +4,19 @@
       <div class="js">
         <p>js</p>
         <div class="content">
-          <div id="js"></div>
-          <textarea @input="handleInputJs" @mousedown="handleCursorPosition"></textarea>
+          <codemirror v-model="js" :options="jsOption"/>
         </div>
       </div>
       <div class="css">
         <p>css</p>
         <div class="content">
-          <div id="css" class=""></div>
-          <textarea @input="handleInputCss"></textarea>
+          <codemirror v-model="css" :options="cssOption"/>
         </div>
       </div >
       <div class="html">
         <p>html</p>
         <div class="content">
-          <div id="html"></div>
-          <textarea @input="handleInputHtml"></textarea>
+          <codemirror v-model="html" :options="htmlOption"/>
         </div>
       </div>
     </div>
@@ -27,14 +24,49 @@
   </div>
 </template>
 <script>
+import { codemirror } from 'vue-codemirror'
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/mode/javascript/javascript.js'
+import 'codemirror/mode/xml/xml.js'
+import 'codemirror/mode/css/css.js'
+import 'codemirror/theme/monokai.css'
+import 'codemirror/addon/selection/active-line.js'
+import 'codemirror/addon/selection/mark-selection.js'
+import 'codemirror/addon/search/searchcursor.js'
+import 'codemirror/addon/scroll/annotatescrollbar.js'
+import 'codemirror/addon/search/matchesonscrollbar.js'
+import 'codemirror/addon/search/match-highlighter.js'
 export default {
   name: 'CssTrickWrite',
+  components: {
+    codemirror
+  },
   data () {
     return {
       js: '',
+      jsOption: {
+        tabSize: 2,
+        mode: 'text/javascript',
+        theme: 'monokai',
+        lineNumbers: true,
+        line: true
+      },
       html: '',
+      htmlOption: {
+        tabSize: 2,
+        mode: 'text/html',
+        theme: 'monokai',
+        lineNumbers: true,
+        line: true
+      },
       css: '',
-      doubleReg: /[^\x00-\xff]/g
+      cssOption: {
+        tabSize: 2,
+        mode: 'text/x-less',
+        theme: 'monokai',
+        lineNumbers: true,
+        line: true
+      }
     }
   },
   methods: {

@@ -23,7 +23,7 @@ import MyButton from '@/components/base/button/index'
 import MySelect from '@/components/base/select/index'
 import UpLoadFile from '@/components/base/up-load-file/up-load-file'
 export default {
-  name: 'WrtieArticle',
+  name: 'ArticleWrtie',
   components: {
     MyButton,
     MySelect,
@@ -210,5 +210,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import './write-article.less';
+@import './article-write.less';
 </style>

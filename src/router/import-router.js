@@ -1,7 +1,8 @@
 /* eslint-disable */
 import Main from '../views/main/index'
 const mode = ''
-const viewsRouterContext = require.context('../views', true, /routes\/index.js$/)
+// const viewsRouterContext = require.context('../views', true, /routes\/index.js$/)
+const viewsRouterContext = require.context('./', true, /index.js$/)
 const routes = [
   {
     path: '/',
@@ -40,6 +41,5 @@ if (mode === 'lazy') {
   })
 }
 
-console.log('helo')
 console.log(routes)
 export default routes

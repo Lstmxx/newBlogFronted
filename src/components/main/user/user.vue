@@ -36,7 +36,7 @@ export default {
       const optionList = [
         {
           name: '写文章',
-          path: 'write-article',
+          path: 'article-write',
           icon: 'write'
         },
         {
